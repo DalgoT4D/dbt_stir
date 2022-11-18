@@ -1,0 +1,93 @@
+
+version: 2
+
+sources:
+  - name: survey-cto
+    schema: public
+    database: postgres
+    tables:
+      - name: delhi
+        identifier: delhi_india_measurement_form_2022
+        description: One record per form data. 
+
+  - name: survey-cto-tn
+    schema: public
+    database: postgres
+    tables:
+      - name: tamil_nadu
+        identifier: tn_stir_bm_2022
+        description: One record per form data. 
+
+  - name: survey-cto-kn
+    schema: public
+    database: postgres
+    tables:
+      - name: karnataka
+        identifier: karnataka_stir_bm_2022
+        description: One record per form data. 
+
+  - name: survey-cto-indo
+    schema: public
+    database: postgres
+    tables:
+      - name: indonesia
+        identifier: indonesia_stir_bm_2022
+        description: One record per form data. 
+
+  - name: survey-cto-un
+    schema: public
+    database: postgres
+    tables:
+      - name: uganda
+        identifier: uganda_bm_2022
+        description: One record per form data.
+       
+models:
+  - name: delhi
+    description: "Add survey form data" 
+    columns: 
+       - name: _airbyte_ab_id
+         description: "The primary key for this table"
+         tests:
+           - unique
+           - not_null
+
+  - name: tamil_nadu
+    description: "Add survey form data" 
+    columns: 
+       - name: _airbyte_ab_id
+         description: "The primary key for this table"
+         tests:
+           - unique
+           - not_null 
+
+  
+  - name: karnataka
+    description: "Add survey form data" 
+    columns: 
+       - name: _airbyte_ab_id
+         description: "The primary key for this table"
+         tests:
+           - unique
+           - not_null 
+  
+    
+  - name: indonesia
+    description: "Add survey form data" 
+    columns: 
+       - name: _airbyte_ab_id
+         description: "The primary key for this table"
+         tests:
+           - unique
+           - not_null 
+  
+  - name: uganda
+    description: "Add survey form data" 
+    columns: 
+       - name: _airbyte_ab_id
+         description: "The primary key for this table"
+         tests:
+           - unique
+           - not_null 
+  
+           
