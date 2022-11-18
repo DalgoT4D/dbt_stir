@@ -9,13 +9,13 @@ sources:
         identifier: delhi_india_measurement_form_2022
         description: One record per form data. 
       - name: tamil_nadu
-        identifier: source_classroom_surveys_tamil_nadu
+        identifier: tn_stir_bm_2022
         description: One record per form data. 
       - name: karnataka
         identifier: karnataka_stir_bm_2022
         description: One record per form data. 
       - name: indonesia
-        identifier: source_classroom_surveys_indonesia
+        identifier: indonesia_stir_bm_2022
         description: One record per form data. 
       - name: uganda
         identifier: uganda_bm_2022

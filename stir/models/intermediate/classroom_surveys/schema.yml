@@ -1,3 +1,4 @@
+version: 2
 
 models:
   - name: int_classroom_surveys_delhi
@@ -9,7 +10,7 @@ models:
            - unique
            - not_null
 
-  - name: tamil_nadu
+  - name: int_classroom_surveys_tamil_nadu
     description: "Add survey form data" 
     columns: 
        - name: _airbyte_ab_id
@@ -19,7 +20,7 @@ models:
            - not_null 
 
   
-  - name: karnataka
+  - name: int_classroom_surveys_karnataka
     description: "Add survey form data" 
     columns: 
        - name: _airbyte_ab_id
@@ -29,7 +30,7 @@ models:
            - not_null 
   
     
-  - name: indonesia
+  - name: int_classroom_surveys_indonesia
     description: "Add survey form data" 
     columns: 
        - name: _airbyte_ab_id
@@ -38,7 +39,7 @@ models:
            - unique
            - not_null 
   
-  - name: uganda
+  - name: int_classroom_surveys_uganda
     description: "Add survey form data" 
     columns: 
        - name: _airbyte_ab_id
