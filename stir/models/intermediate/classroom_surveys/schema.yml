@@ -1,8 +1,6 @@
 
-
-       
 models:
-  - name: delhi
+  - name: int_classroom_surveys_delhi
     description: "Add survey form data" 
     columns: 
        - name: _airbyte_ab_id
