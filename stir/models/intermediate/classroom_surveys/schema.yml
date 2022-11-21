@@ -47,5 +47,8 @@ models:
          tests:
            - unique
            - not_null 
-  
+
+  - name: merge
+    description: "Deduped model"
+    
            
