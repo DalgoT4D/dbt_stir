@@ -48,7 +48,7 @@ models:
            - unique
            - not_null 
 
-  - name: merge
+  - name: classroom_surveys_merged
     description: "Deduped model"
     
            
