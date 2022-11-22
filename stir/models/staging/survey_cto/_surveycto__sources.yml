@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: source_classroom_surveys
     schema: staging
-    database: postgres
+    database: ddp_pipeline_test
     tables:
       - name: delhi
         identifier: delhi_india_measurement_form_2022
