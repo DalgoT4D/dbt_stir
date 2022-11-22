@@ -1,0 +1,9 @@
+version: 2
+
+models: 
+
+  - name: classroom_surveys_merged
+    description: "Deduped model"
+
+  - name: classroom_surveys_normalized
+    description: "merged and score normalized"
