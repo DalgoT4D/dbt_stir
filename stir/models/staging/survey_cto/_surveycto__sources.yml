@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: source_classroom_surveys
-    schema: public
+    schema: staging
     database: postgres
     tables:
       - name: delhi

@@ -3,6 +3,7 @@ version: 2
 models:
   - name: int_classroom_surveys_delhi
     description: "Add survey form data" 
+    +schema: intermediate
     columns: 
        - name: _airbyte_ab_id
          description: "The primary key for this table"
@@ -12,6 +13,7 @@ models:
 
   - name: int_classroom_surveys_tamil_nadu
     description: "Add survey form data" 
+    +schema: intermediate
     columns: 
        - name: _airbyte_ab_id
          description: "The primary key for this table"
@@ -22,6 +24,7 @@ models:
   
   - name: int_classroom_surveys_karnataka
     description: "Add survey form data" 
+    +schema: intermediate
     columns: 
        - name: _airbyte_ab_id
          description: "The primary key for this table"
@@ -32,6 +35,7 @@ models:
     
   - name: int_classroom_surveys_indonesia
     description: "Add survey form data" 
+    +schema: intermediate
     columns: 
        - name: _airbyte_ab_id
          description: "The primary key for this table"
@@ -41,6 +45,7 @@ models:
   
   - name: int_classroom_surveys_uganda
     description: "Add survey form data" 
+    +schema: intermediate
     columns: 
        - name: _airbyte_ab_id
          description: "The primary key for this table"
@@ -48,7 +53,5 @@ models:
            - unique
            - not_null 
 
-  - name: classroom_surveys_merged
-    description: "Deduped model"
     
            

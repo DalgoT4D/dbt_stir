@@ -3,8 +3,8 @@
    indexes=[
       {'columns': ['_airbyte_ab_id'], 'type': 'hash'}
     ],
-    enabled=true
-
+    enabled=true,
+    schema='intermediate'
 
 ) }}
 
