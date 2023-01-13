@@ -21,7 +21,8 @@ with merged_normalized AS (SELECT "KEY","submissiondate","country","region","sub
                     'cro13aiii_worked_examples',
                     'cro13aiv_bridging_covid19_learning_losses','cro13aiv_classroom_routines','cro13aiv_longterm_learning',
                     'cro13aiv_na','cro13aiv_socio_emotional_wellbeing','cro13aiv_structuring_learning_journey',
-                    'cro13av_growth_mindset','cro13av_normalising_error']) AS subindicator,
+                    'cro13av_growth_mindset','cro13av_normalising_error',
+                    'cro13b','cro13c']) AS subindicator,
        unnest(array[s1,s2,s3,s4,
                     c1,c2,
                     e1,e2,
@@ -39,7 +40,8 @@ with merged_normalized AS (SELECT "KEY","submissiondate","country","region","sub
                     cro13aiii_worked_examples,
                     cro13aiv_bridging_covid19_learning_losses,cro13aiv_classroom_routines,cro13aiv_longterm_learning,
                     cro13aiv_na,cro13aiv_socio_emotional_wellbeing,cro13aiv_structuring_learning_journey,
-                    cro13av_growth_mindset,cro13av_normalising_error]) AS score
+                    cro13av_growth_mindset,cro13av_normalising_error,
+                    cro13b,cro13c]) AS score
 FROM {{ref('classroom_surveys_merged')}}
 )
 
@@ -62,6 +64,6 @@ WHEN subindicator IN ('cro13ai_behavior_engagement','cro13ai_behavior_safety','c
                     'cro13aiii_worked_examples',
                     'cro13aiv_bridging_covid19_learning_losses','cro13aiv_classroom_routines','cro13aiv_longterm_learning',
                     'cro13aiv_na','cro13aiv_socio_emotional_wellbeing','cro13aiv_structuring_learning_journey',
-                    'cro13av_growth_mindset','cro13av_normalising_error') THEN 'Additional CRO Indicators'
+                    'cro13av_growth_mindset','cro13av_normalising_error','cro13b','cro13c') THEN 'Additional CRO Indicators'
 ELSE 'Other' END AS behavior from merged_normalized
 ORDER BY "submissiondate","KEY"
