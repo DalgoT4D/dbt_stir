@@ -43,7 +43,6 @@ select
   "cro13c",
   "n_seca",
   "n_secc",
-  "endtime",
   "meeting",
   "n1_secd",
   "n1_sece",
@@ -56,7 +55,6 @@ select
   "duration",
   "expected",
   "username",
-  "starttime",
   "instanceid",
   "cro13aiv_na",
   "device_info",
@@ -66,8 +64,6 @@ select
   "observer_role",
   "review_status",
   "role_coaching",
-  "completiondate",
-  "submissiondate",
   "coachee_gender",
   "devicephonenum",
   "review_quality",
@@ -89,14 +85,19 @@ select
   "cro13aiv_classroom_routines",
   "cro13aiv_socio_emotional_wellbeing",
   "cro13aiv_structuring_learning_journey",
+  "cro13aiv_bridging_covid19_learning_losses",
   "_airbyte_ab_id",
   "_airbyte_emitted_at",
   "_airbyte_normalized_at",
   "_airbyte_tn_stir_bm_2022_hashid",
 'India' AS country, 'tamil_nadu' AS region, district_tn as sub_region, COALESCE(s1, cro1) as s1,
- COALESCE(s2, cro2) as s2,  COALESCE(s3, cro3) as s3, COALESCE(cro4, e1) as e1, COALESCE(cro5, e2) as e2, COALESCE(cro7, c1) as c1,
- COALESCE(cro7a, c1a) as c1a, COALESCE(cro8, c2) as c2, COALESCE(cro8a, c2a) as c2a, COALESCE(cro10, se1) as se1,
- COALESCE(cro11, se2) as se2, COALESCE(cro12, se3) as se3, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date
+COALESCE(s2, cro2) as s2,  COALESCE(s3, cro3) as s3, COALESCE(cro4, e1) as e1, COALESCE(cro5, e2) as e2, COALESCE(cro7, c1) as c1,
+COALESCE(cro7a, c1a) as c1a, COALESCE(cro8, c2) as c2, COALESCE(cro8a, c2a) as c2a, COALESCE(cro10, se1) as se1,
+COALESCE(cro11, se2) as se2, COALESCE(cro12, se3) as se3, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
+to_timestamp(starttime,'Mon, DD YYYY HH:MI:SS AM') AS starttime,
+to_timestamp(endtime,'Mon, DD YYYY HH:MI:SS AM') AS endtime,
+to_timestamp(completiondate,'Mon, DD YYYY HH:MI:SS AM') AS completiondate,
+to_timestamp(submissiondate,'Mon, DD YYYY HH:MI:SS AM') AS submissiondate
 from "postgres"."staging"."tn_stir_bm_2022"
   );
   

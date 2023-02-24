@@ -14,7 +14,7 @@ select
 COALESCE(s1, cro1) as s1,
 COALESCE(s2, cro2) as s2,  COALESCE(s3, cro3) as s3, COALESCE(cro4, e1) as e1, COALESCE(cro5, e2) as e2, COALESCE(cro7, c1) as c1,
 COALESCE(cro7a, c1a) as c1a, COALESCE(cro8, c2) as c2, COALESCE(cro8a, c2a) as c2a, COALESCE(cro10, se1) as se1,
-COALESCE(cro11, se2) as se2, COALESCE(cro12, se3) as se3, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
+COALESCE(cro11, se2) as se2, COALESCE(cro12, se3) as se3, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date, forms_uganda as forms,
 to_timestamp(starttime,'Mon, DD YYYY HH:MI:SS AM') AS starttime,
 to_timestamp(endtime,'Mon, DD YYYY HH:MI:SS AM') AS endtime,
 to_timestamp(completiondate,'Mon, DD YYYY HH:MI:SS AM') AS completiondate,

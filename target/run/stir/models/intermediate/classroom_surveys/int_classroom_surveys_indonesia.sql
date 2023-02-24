@@ -42,7 +42,6 @@ select
   "cro13c",
   "n_seca",
   "n_secc",
-  "endtime",
   "meeting",
   "n1_secd",
   "n1_sece",
@@ -55,7 +54,6 @@ select
   "duration",
   "expected",
   "username",
-  "starttime",
   "instanceid",
   "device_info",
   "malepresent",
@@ -64,8 +62,6 @@ select
   "observer_role",
   "review_status",
   "role_coaching",
-  "completiondate",
-  "submissiondate",
   "coachee_gender",
   "devicephonenum",
   "review_quality",
@@ -95,9 +91,13 @@ select
   "_airbyte_normalized_at",
   "_airbyte_indonesia_stir_bm_2022_hashid",
 'Indonesia' AS country, location_indonesia AS region, district_indonesia as sub_region, COALESCE(s1, cro1) as s1,
- COALESCE(s2, cro2) as s2,  COALESCE(s3, cro3) as s3, COALESCE(cro4, e1) as e1, COALESCE(cro5, e2) as e2, COALESCE(cro7, c1) as c1,
- COALESCE(cro7a, c1a) as c1a, COALESCE(cro8, c2) as c2, COALESCE(cro8a, c2a) as c2a, COALESCE(cro9, c3) as c3, COALESCE(cro10, se1) as se1,
- COALESCE(cro11, se2) as se2, COALESCE(cro12, se3) as se3, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date
+COALESCE(s2, cro2) as s2,  COALESCE(s3, cro3) as s3, COALESCE(cro4, e1) as e1, COALESCE(cro5, e2) as e2, COALESCE(cro7, c1) as c1,
+COALESCE(cro7a, c1a) as c1a, COALESCE(cro8, c2) as c2, COALESCE(cro8a, c2a) as c2a, COALESCE(cro9, c3) as c3, COALESCE(cro10, se1) as se1,
+COALESCE(cro11, se2) as se2, COALESCE(cro12, se3) as se3, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date, forms_indonesia as forms,
+to_timestamp(starttime,'Mon, DD YYYY HH:MI:SS AM') AS starttime,
+to_timestamp(endtime,'Mon, DD YYYY HH:MI:SS AM') AS endtime,
+to_timestamp(completiondate,'Mon, DD YYYY HH:MI:SS AM') AS completiondate,
+to_timestamp(submissiondate,'Mon, DD YYYY HH:MI:SS AM') AS submissiondate
 from "postgres"."staging"."indonesia_stir_bm_2022"
   );
   
