@@ -9,7 +9,7 @@
 
 select
 {{ dbt_utils.star(from= source('source_classroom_surveys', 'uganda'), except=[district_bunyoro,district_kigezi,
-    district_masaka, district_rwenzori, district_central, 'c1', 'c2', 's1', 's2', 's3', 'e1', 'e2', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate']) }},
+    district_masaka, district_rwenzori, district_central, 's1', 's2', 's3', 'e1', 'e2', 'c1', 'c1a', 'c2', 'c2a', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate']) }},
 'Uganda' AS country, location_uganda AS region, coalesce (district_bunyoro,district_kigezi,district_masaka, district_rwenzori, district_central) as sub_region,
 COALESCE(s1, cro1) as s1,
 COALESCE(s2, cro2) as s2,  COALESCE(s3, cro3) as s3, COALESCE(cro4, e1) as e1, COALESCE(cro5, e2) as e2, COALESCE(cro7, c1) as c1,
