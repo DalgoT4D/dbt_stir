@@ -10,7 +10,19 @@
 ) }}
 
 select
-{{ dbt_utils.star(from= source('source_classroom_surveys', 'tamil_nadu'), except=['district_tn', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate']) }},
+CASE 
+  When forms = 'cc' then 'coaching_calls'
+  When forms = 'cro' then 'classroom_observations'
+  When forms = 'dmpc' then 'district_monthly_progress_checks'
+  When forms = 'nm' then 'network_meeting'
+  When forms = 'nm_art' then 'network_meeting_academic'
+  When forms = 'el_ins' then 'education_leaders_institute'
+  When forms = 'nm_coart' then 'network_meeting_co-academic'
+  When forms = 'elm_ins' then 'education_leader_manager_institute'
+  When forms = 'dam' then 'district_alignment_meeting'
+  When forms = 'dc_ins' then 'district_champion_institute'
+END As forms,
+{{ dbt_utils.star(from= source('source_classroom_surveys', 'tamil_nadu'), except=['forms', 'district_tn', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate']) }},
 'India' AS country, 'tamil_nadu' AS region, district_tn as sub_region, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
 COALESCE(cro1, s1) as s1,
 COALESCE(cro2, s2) as s2,  
