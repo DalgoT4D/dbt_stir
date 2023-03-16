@@ -16,7 +16,7 @@ CASE
   When forms_indonesia = 'cro_indo' then 'classroom_observation_indonesia'
   When forms_indonesia = 'dcm_indo' then 'district_coordination_meeting_indonesia'
 END As forms_verbose,
-{{ dbt_utils.star(from= source('source_classroom_surveys', 'indonesia'), except=['district_indonesia', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate']) }},
+{{ dbt_utils.star(from= source('source_classroom_surveys', 'indonesia'), except=['district_indonesia', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate', '_airbyte_indonesia_stir_bm_2022_hashid']) }},
 'Indonesia' AS country, location_indonesia AS region, district_indonesia as sub_region,
 COALESCE(cro1, s1) as s1,
 COALESCE(cro2, s2) as s2,  

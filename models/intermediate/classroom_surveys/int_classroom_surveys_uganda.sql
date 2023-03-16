@@ -21,7 +21,7 @@ CASE
   When forms_uganda = 'mid_term_ug' then 'mid_term_meetups_Uganda'
 END As forms_verbose,
 {{ dbt_utils.star(from= source('source_classroom_surveys', 'uganda'), except=[district_bunyoro,district_kigezi,
-    district_masaka, district_rwenzori, district_central, 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate']) }},
+    district_masaka, district_rwenzori, district_central, 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate', '_airbyte_uganda_bm_2022_hashid']) }},
 'Uganda' AS country, location_uganda AS region, coalesce (district_bunyoro,district_kigezi,district_masaka, district_rwenzori, district_central) as sub_region,
 to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
 COALESCE(cro1, s1) as s1,
