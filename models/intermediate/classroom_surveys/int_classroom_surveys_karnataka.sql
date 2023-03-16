@@ -9,6 +9,7 @@
 ) }}
 
 select
+forms,
 CASE 
   When forms = 'cc' then 'coaching_calls'
   When forms = 'cro' then 'classroom_observations'
@@ -18,7 +19,7 @@ CASE
   When forms = 'el_ins' then 'education_leaders_institute'
   When forms = 'nm_coart' then 'network_meeting_co-academic'
   When forms = 'elm_ins' then 'education_leader_manager_institute'
-END As forms,
+END As forms_verbose,
 {{ dbt_utils.star(from= source('source_classroom_surveys', 'karnataka'), except=['forms', 'district_kt', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate']) }},
 'India' AS country, 'karnataka' AS region, district_kt as sub_region, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
 to_timestamp(starttime,'Mon, DD YYYY HH:MI:SS AM') AS starttime,
