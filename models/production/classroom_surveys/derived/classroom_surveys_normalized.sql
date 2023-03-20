@@ -3,7 +3,8 @@
 ) }}
 
 
-with merged_normalized AS (SELECT "KEY","submissiondate","country","region","sub_region","forms","observation_term","meeting",
+with merged_normalized AS
+       (SELECT "KEY","submissiondate","country","region","sub_region","forms", "forms_verbose", "observation_term","meeting",
        unnest(array['s1','s2','s3','s4',
                     'c1','c2','c3',
                     'e1','e2',
@@ -66,4 +67,9 @@ WHEN subindicator IN ('cro13ai_behavior_engagement','cro13ai_behavior_safety','c
                     'cro13aiv_na','cro13aiv_socio_emotional_wellbeing','cro13aiv_structuring_learning_journey',
                     'cro13av_growth_mindset','cro13av_normalising_error','cro13b','cro13c') THEN 'Additional CRO Indicators'
 ELSE 'Other' END AS behavior from merged_normalized
+WHERE score is NOT NULL
 ORDER BY "submissiondate","KEY"
+
+
+
+     
