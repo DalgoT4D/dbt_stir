@@ -24,7 +24,7 @@ with merged_normalized AS (SELECT "KEY","submissiondate","country","region","sub
                     'cro13av_growth_mindset','cro13av_normalising_error',
                     'cro13b','cro13c']) AS subindicator,
        unnest(array[s1,s2,s3,s4,
-                    c1,c2,
+                    c1, c2, c3,
                     e1,e2,
                     se1,se2,se3,se4,se5,
                     cc1,cc2,cc3, cc4,cc5,
