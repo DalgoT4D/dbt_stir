@@ -38,6 +38,10 @@ select *,
         When forms = 'nm_ug' then 'Network Meeting Uganda'
         When forms = 'cro_ug' then 'Classroom Observation Uganda'
         When forms = 'mid_term_ug' then 'Mid Term Meetups Uganda'
+        When forms = 'sp_indo' then 'School Principals Institute Indonesia'
+        When forms = 'dpo_nb' then 'District Personnel Officer National Bootcamp'
+        When forms = 'ss_indo' then 'School Supervisors Institute Indonesia'
+        When forms = 'dcac_indo' then 'District Coordinator/Area Coordinator Institute Indonesia'
        END As forms_verbose
 
 from initial_merge 
