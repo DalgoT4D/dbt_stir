@@ -3,10 +3,7 @@
    indexes=[
       {'columns': ['_airbyte_ab_id'], 'type': 'hash'}
     ],
-    enabled=true,
-    schema='intermediate'
-
-
+    enabled=true
 ) }}
 
 select
