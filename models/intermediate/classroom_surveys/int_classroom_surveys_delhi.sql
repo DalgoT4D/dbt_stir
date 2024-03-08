@@ -1,13 +1,13 @@
 {{ config(
   materialized='table',
    indexes=[
-      {'columns': ['_airbyte_ab_id'], 'type': 'hash'}
+      {'columns': ['_airbyte_raw_id'], 'type': 'hash'}
     ]
 ) }}
 
 select
 forms,
-{{ dbt_utils.star(from= source('source_classroom_surveys', 'delhi'), except=['forms', 'diet_delhi', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','completiondate', '_airbyte_delhi_india__ment_form_2022_hashid']) }},
+{{ dbt_utils.star(from= source('source_classroom_surveys', 'delhi'), except=['forms', 'diet_delhi', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','"CompletionDate"', '_airbyte_delhi_india__ment_form_2022_hashid']) }},
 'India' AS country, 'delhi' AS region, diet_delhi as sub_region, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
 COALESCE(cro1, s1) as s1,
 COALESCE(cro2, s2) as s2,  
@@ -22,9 +22,17 @@ COALESCE(cro9, c3) as c3,
 COALESCE(cro10, se1) as se1,
 COALESCE(cro11, se2) as se2, 
 COALESCE(cro12, se3) as se3, 
+"AD1" as ad1,
+"AD2" as ad2,
+"AD3" as ad3,
+"AD4" as ad4,
+"AD5" as ad5, 
+"AD7" as ad7,
+"AD8" as ad8,
+"AD9" as ad9,
 to_timestamp(starttime,'Mon, DD YYYY HH:MI:SS AM') AS starttime,
 to_timestamp(endtime,'Mon, DD YYYY HH:MI:SS AM') AS endtime,
-to_timestamp(completiondate,'Mon, DD YYYY HH:MI:SS AM') AS completiondate,
-to_timestamp(submissiondate,'Mon, DD YYYY HH:MI:SS AM') AS submissiondate
+to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate,
+to_timestamp("SubmissionDate",'Mon, DD YYYY HH:MI:SS AM') AS submissiondate
 from {{ source('source_classroom_surveys', 'delhi') }} 
 
