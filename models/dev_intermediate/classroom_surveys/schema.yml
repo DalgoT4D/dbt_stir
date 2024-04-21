@@ -5,7 +5,7 @@ models:
     description: "Add survey form data"
     +schema: dev_intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
@@ -16,7 +16,7 @@ models:
     description: "Add survey form data"
     +schema: dev_intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
@@ -27,7 +27,7 @@ models:
     description: "Add survey form data"
     +schema: dev_intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
@@ -38,7 +38,7 @@ models:
     description: "Add survey form data"
     +schema: dev_intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
@@ -49,7 +49,7 @@ models:
     description: "Add survey form data"
     +schema: dev_intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
@@ -60,7 +60,7 @@ models:
     description: "Add survey form data"
     +schema: dev_intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
