@@ -5,7 +5,7 @@ models:
     description: "Add survey form data"
     +schema: intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
@@ -15,7 +15,7 @@ models:
     description: "Add survey form data"
     +schema: intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
@@ -25,7 +25,7 @@ models:
     description: "Add survey form data"
     +schema: intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
@@ -35,7 +35,7 @@ models:
     description: "Add survey form data"
     +schema: intermediate
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
@@ -45,73 +45,8 @@ models:
     description: "Add survey form data"
     +schema: intermediate
     columns:
-      - name: _airbyte_raw_id
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
-  - name: dev_classroom_surveys_delhi
-    description: "Add survey form data"
-    +schema: dev_intermediate
-    columns:
       - name: '"KEY"'
         description: "The primary key for this table"
         tests:
           - unique
           - not_null
-        type: string
-
-  - name: dev_classroom_surveys_tamil_nadu
-    description: "Add survey form data"
-    +schema: dev_intermediate
-    columns:
-      - name: '"KEY"'
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
-        type: string
-
-  - name: dev_classroom_surveys_karnataka
-    description: "Add survey form data"
-    +schema: dev_intermediate
-    columns:
-      - name: '"KEY"'
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
-        type: string
-
-  - name: dev_classroom_surveys_indonesia
-    description: "Add survey form data"
-    +schema: dev_intermediate
-    columns:
-      - name: '"KEY"'
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
-        type: string
-
-  - name: dev_classroom_surveys_uganda
-    description: "Add survey form data"
-    +schema: dev_intermediate
-    columns:
-      - name: '"KEY"'
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
-        type: string
-
-  - name: dev_classroom_surveys_ethiopia
-    description: "Add survey form data"
-    +schema: dev_intermediate
-    columns:
-      - name: '"KEY"'
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
-        type: string

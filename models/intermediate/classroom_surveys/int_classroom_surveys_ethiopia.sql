@@ -1,13 +1,10 @@
 {{ config(
   materialized='table',
-   indexes=[
-      {'columns': ['_airbyte_raw_id'], 'type': 'hash'}
-    ]
 ) }}
 
 select
 forms_ethiopia as forms,
-{{ dbt_utils.star(from= source('source_classroom_surveys', 'ethiopia'), 
+{{ dbt_utils.star(from= ref('ethiopia_normalized'), 
 except=['s1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','SubmissionDate','"CompletionDate"']) }},
 to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
 COALESCE(cro1, s1) as s1,
@@ -27,4 +24,4 @@ to_timestamp(starttime,'Mon, DD YYYY HH:MI:SS AM') AS starttime,
 to_timestamp(endtime,'Mon, DD YYYY HH:MI:SS AM') AS endtime,
 to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate,
 to_timestamp("SubmissionDate",'Mon, DD YYYY HH:MI:SS AM') AS submissiondate
-from {{ source('source_classroom_surveys', 'ethiopia') }} 
+from {{ ref('ethiopia_normalized') }} 
