@@ -3,6 +3,6 @@
 ) }}
 
 {{ flatten_json(
-    model_name = source('source_classroom_surveys1', 'tamil_nadu'),
+    model_name = source('source_classroom_surveys_dev', 'indonesia'),
     json_column = 'data'
 ) }}

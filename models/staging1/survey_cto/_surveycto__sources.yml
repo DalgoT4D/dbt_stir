@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: source_classroom_surveys1
+  - name: source_classroom_surveys_dev
     schema: staging1
     tables:
       - name: delhi
