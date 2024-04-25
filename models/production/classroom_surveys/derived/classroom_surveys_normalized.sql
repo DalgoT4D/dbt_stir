@@ -24,7 +24,7 @@ with merged_normalized AS
                     'cro13aiv_na','cro13aiv_socio_emotional_wellbeing','cro13aiv_structuring_learning_journey',
                     'cro13av_growth_mindset','cro13av_normalising_error',
                     'cro13b','cro13c']) AS subindicator,
-       CAST(unnest(array[s1,s2,s3,s4,
+       unnest(array[s1,s2,s3,s4,
                     c1, c2, c3,
                     e1,e2,
                     se1,se2,se3,se4,se5,
@@ -42,7 +42,7 @@ with merged_normalized AS
                     cro13aiv_bridging_covid19_learning_losses,cro13aiv_classroom_routines,cro13aiv_longterm_learning,
                     cro13aiv_na,cro13aiv_socio_emotional_wellbeing,cro13aiv_structuring_learning_journey,
                     cro13av_growth_mindset,cro13av_normalising_error,
-                    cro13b,cro13c]) as BIGINT) AS score
+                    cro13b,cro13c]) AS score
 FROM {{ref('classroom_surveys_merged')}}
 )
 
