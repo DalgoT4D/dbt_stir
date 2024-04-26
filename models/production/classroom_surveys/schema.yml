@@ -1,6 +1,7 @@
 version: 2
 
 models:
+models:
   - name: classroom_surveys_merged
     description: "Deduped model"
     schema: production
@@ -30,6 +31,14 @@ models:
 
   - name: classroom_surveys_normalized
     description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+        type: string
+
     schema: production
     columns:
       - name: '"KEY"'
