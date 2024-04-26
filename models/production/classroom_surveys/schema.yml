@@ -1,19 +1,32 @@
 version: 2
 
 models:
+models:
   - name: classroom_surveys_merged
     description: "Deduped model"
     schema: production
     columns:
-      - name: _airbyte_raw_id
+      - name: '"KEY"'
         description: "The primary key for this table"
         tests:
-          - unique
           - not_null
         type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
 
   - name: classroom_surveys_normalized
     description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+        type: string
+
     schema: production
     columns:
       - name: '"KEY"'

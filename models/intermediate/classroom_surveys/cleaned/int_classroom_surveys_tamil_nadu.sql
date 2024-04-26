@@ -1,13 +1,10 @@
 {{ config(
   materialized='table',
-   indexes=[
-      {'columns': ['_airbyte_raw_id'], 'type': 'hash'}
-    ]
 ) }}
 
 select
 forms,
-{{ dbt_utils.star(from= source('source_classroom_surveys', 'tamil_nadu'), except=['forms', 'district_tn', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','"CompletionDate"', '_airbyte_tn_stir_bm_2022_hashid']) }},
+{{ dbt_utils.star(from= ref('tamil_nadu_normalized'), except=['forms', 'district_tn', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','"CompletionDate"', '_airbyte_tn_stir_bm_2022_hashid']) }},
 'India' AS country, 'tamil_nadu' AS region, district_tn as sub_region, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
 COALESCE(cro1, s1) as s1,
 COALESCE(cro2, s2) as s2,  
@@ -26,4 +23,4 @@ to_timestamp(starttime,'Mon, DD YYYY HH:MI:SS AM') AS starttime,
 to_timestamp(endtime,'Mon, DD YYYY HH:MI:SS AM') AS endtime,
 to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate,
 to_timestamp("SubmissionDate",'Mon, DD YYYY HH:MI:SS AM') AS submissiondate
-from {{ source('source_classroom_surveys', 'tamil_nadu') }} 
+from {{ ref('tamil_nadu_normalized') }} 
