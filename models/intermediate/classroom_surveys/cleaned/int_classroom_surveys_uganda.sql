@@ -1,13 +1,10 @@
 {{ config(
   materialized='table',
-   indexes=[
-      {'columns': ['_airbyte_raw_id'], 'type': 'hash'}
-    ]
 ) }}
 
 select
 forms_uganda as forms,
-{{ dbt_utils.star(from= source('source_classroom_surveys', 'uganda'), 
+{{ dbt_utils.star(from= ref('uganda_normalized'), 
 except=['location_uganda', 'district_bunyoro', 
 'district_kigezi', 
 'district_masaka', 
@@ -40,4 +37,4 @@ to_timestamp(starttime,'Mon, DD YYYY HH:MI:SS AM') AS starttime,
 to_timestamp(endtime,'Mon, DD YYYY HH:MI:SS AM') AS endtime,
 to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate,
 to_timestamp("SubmissionDate",'Mon, DD YYYY HH:MI:SS AM') AS submissiondate
-from {{ source('source_classroom_surveys', 'uganda') }} 
+from {{ ref('uganda_normalized') }} 
