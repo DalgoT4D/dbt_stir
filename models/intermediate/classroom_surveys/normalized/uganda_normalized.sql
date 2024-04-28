@@ -1,6 +1,6 @@
 {{ config(
   materialized='table',
-  schema='intermediate'
+  schema=generate_schema_name('prod_intermediate', this)
 ) }}
 
 with cte as (
@@ -14,8 +14,8 @@ SELECT
     cro13aiii_exit_ticket::bigint,
     cro13aiii_spaced_practice::bigint,
     cro13aiii_formative_assessment_strategies::bigint,
-    starttime::varchar,
-    "SubmissionDate"::varchar,
+    starttime,
+    "SubmissionDate",
     cro13aiii_elaborative_questioning::bigint,
     coachee_gender::varchar,
     location_uganda::varchar,
@@ -61,10 +61,10 @@ SELECT
     cro13aiii_dual_coding::bigint,
     facilitator_role_coaching::varchar,
     review_status::varchar,
-    "CompletionDate"::varchar,
+    "CompletionDate",
     facilitator_role::varchar,
     district_lango::varchar,
-    endtime::varchar,
+    endtime,
     e1::bigint,
     e2::bigint,
     e3::bigint,
@@ -79,7 +79,7 @@ SELECT
     duration_coaching::bigint,
     cro13aiii_asking_effective_questions::bigint,
     cro1::bigint,
-    date::varchar,
+    date,
     n1::varchar,
     n2::varchar,
     n3::varchar,

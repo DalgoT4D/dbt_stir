@@ -1,6 +1,6 @@
 {{ config(
   materialized='table',
-  schema='intermediate'
+  schema=generate_schema_name('prod_intermediate', this)
 ) }}
 
 select

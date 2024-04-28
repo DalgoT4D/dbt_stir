@@ -1,11 +1,13 @@
 {{ config(
-  materialized='table'
+  materialized='table',
+  schema=generate_schema_name('prod', this)
 ) }}
 
 SELECT 
     coalesce(region, 'Unknown') as region,
     submissiondate,
     "KEY",
+    score,
     forms,
     sub_region,
     COUNT(DISTINCT "KEY") FILTER (WHERE forms IN (
@@ -25,4 +27,4 @@ SELECT
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
-    region, submissiondate, "KEY", forms, sub_region
+    region, submissiondate, "KEY", forms, sub_region, score
