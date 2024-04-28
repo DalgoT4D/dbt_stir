@@ -25,3 +25,134 @@ models:
         tests:
           - not_null
         type: string
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+
+  - name: activity_overview
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+        type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+
+  - name: behavioral_officials
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+        type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+      - name: behavior
+        description: "Submission date"
+        tests:
+          - not_null
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+
+  - name: behavioral_overview
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+        type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+      - name: behavior
+        description: "Submission date"
+        tests:
+          - not_null
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+
+  - name: behavioral_students
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+        type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+      - name: behavior
+        description: "Submission date"
+        tests:
+          - not_null
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+
+  - name: behavioral_teachers
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+        type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+      - name: behavior
+        description: "Submission date"
+        tests:
+          - not_null
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
