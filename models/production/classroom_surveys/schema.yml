@@ -15,7 +15,8 @@ models:
         description: "Submission date"
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
 
   - name: classroom_surveys_normalized
     description: "merged and score normalized"
@@ -31,7 +32,8 @@ models:
         description: "Submission date"
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: score
         description: score
         tests:
@@ -53,7 +55,8 @@ models:
         description: "Submission date"
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: region
         description: Region
         tests:
@@ -75,7 +78,8 @@ models:
         description: "Submission date"
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: score
         description: score
         tests:
@@ -109,7 +113,8 @@ models:
         description: "Submission date"
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: score
         description: score
         tests:
@@ -143,7 +148,8 @@ models:
         description: "Submission date"
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: score
         description: score
         tests:
@@ -177,7 +183,8 @@ models:
         description: "Submission date"
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: score
         description: score
         tests:
