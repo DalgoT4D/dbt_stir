@@ -27,8 +27,13 @@ models:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: string
-      - name: score
+      - name: submissiondate
         description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: score
+        description: score
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
@@ -50,11 +55,11 @@ models:
           - not_null
           - is_timestamp
       - name: region
-        description: "Submission date"
+        description: Region
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: character varying
+              column_type: text
 
   - name: behavioral_officials
     description: "merged and score normalized"
@@ -72,26 +77,26 @@ models:
           - not_null
           - is_timestamp
       - name: score
-        description: "Submission date"
+        description: score
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: bigint
       - name: behavior
-        description: "Submission date"
+        description: behavior
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: text
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: character varying
+              column_type: text
 
   - name: behavioral_overview
-    description: "merged and score normalized"
+    description: behavioral overview
     schema: production
     columns:
       - name: '"KEY"'
@@ -106,23 +111,23 @@ models:
           - not_null
           - is_timestamp
       - name: score
-        description: "Submission date"
+        description: score
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: bigint
       - name: behavior
-        description: "Submission date"
+        description: behavior
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: text
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: character varying
+              column_type: text
 
   - name: behavioral_students
     description: "merged and score normalized"
@@ -140,23 +145,23 @@ models:
           - not_null
           - is_timestamp
       - name: score
-        description: "Submission date"
+        description: score
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: bigint
       - name: behavior
-        description: "Submission date"
+        description: behavior
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: text
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: character varying
+              column_type: text
 
   - name: behavioral_teachers
     description: "merged and score normalized"
@@ -174,20 +179,20 @@ models:
           - not_null
           - is_timestamp
       - name: score
-        description: "Submission date"
+        description: score
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: bigint
       - name: behavior
-        description: "Submission date"
+        description: behavior
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: text
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: character varying
+              column_type: text

@@ -11,14 +11,13 @@ models:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: string
-        type: string
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
           - is_timestamp
       - name: region
-        description: "Geographical region"
+        description: Geographical region
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
@@ -36,7 +35,7 @@ models:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: string
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
           - is_timestamp
@@ -53,7 +52,7 @@ models:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: text
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
           - is_timestamp
@@ -76,12 +75,12 @@ models:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: text
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
           - is_timestamp
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
@@ -99,12 +98,12 @@ models:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: text
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
           - is_timestamp
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
@@ -122,11 +121,12 @@ models:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: string
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
           - is_timestamp
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
+Transform: AWS::Serverless-2016-10-31
