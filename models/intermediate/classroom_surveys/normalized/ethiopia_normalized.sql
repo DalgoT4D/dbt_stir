@@ -4,7 +4,7 @@
 
 with cte as (
   {{ flatten_json(
-      model_name = source('source_classroom_surveys_dev', 'ethiopia'),
+      model_name = source('source_classroom_surveys', 'ethiopia'),
       json_column = 'data'
   ) }}
 )
