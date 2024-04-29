@@ -9,7 +9,8 @@ models:
         description: "The primary key for this table"
         tests:
           - not_null
-        type: string
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
       - name: submissiondate
         description: "Submission date"
         tests:
@@ -24,4 +25,169 @@ models:
         description: "The primary key for this table"
         tests:
           - not_null
-        type: string
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: bigint
+
+  - name: activity_overview
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: character varying
+
+  - name: behavioral_officials
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: bigint
+      - name: behavior
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: character varying
+
+  - name: behavioral_overview
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: bigint
+      - name: behavior
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: character varying
+
+  - name: behavioral_students
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: bigint
+      - name: behavior
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: character varying
+
+  - name: behavioral_teachers
+    description: "merged and score normalized"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
+      - name: score
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: bigint
+      - name: behavior
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: character varying
