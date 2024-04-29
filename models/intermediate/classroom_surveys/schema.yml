@@ -9,16 +9,20 @@ models:
         tests:
           - unique
           - not_null
-        type: string
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: region
-        description: "Submission date"
+        description: Geographical region
         tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
 
   - name: int_classroom_surveys_ethiopia
     description: Add survey form data
@@ -29,12 +33,14 @@ models:
         tests:
           - unique
           - not_null
-        type: string
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
 
   - name: int_classroom_surveys_tamil_nadu
     description: Add survey form data
@@ -45,15 +51,20 @@ models:
         tests:
           - unique
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: region
-        description: "Submission date"
+        description: Region
         tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
 
   - name: int_classroom_surveys_karnataka
     description: Add survey form data
@@ -64,15 +75,20 @@ models:
         tests:
           - unique
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
 
   - name: int_classroom_surveys_indonesia
     description: Add survey form data
@@ -83,15 +99,20 @@ models:
         tests:
           - unique
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
 
   - name: int_classroom_surveys_uganda
     description: Add survey form data
@@ -102,12 +123,16 @@ models:
         tests:
           - unique
           - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
       - name: submissiondate
-        description: "Submission date"
+        description: Submission date
         tests:
           - not_null
-          - is_timestamp
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
       - name: region
-        description: "Submission date"
+        description: region
         tests:
           - not_null
+Transform: AWS::Serverless-2016-10-31
