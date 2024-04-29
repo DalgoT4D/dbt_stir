@@ -15,6 +15,26 @@ models:
         tests:
           - not_null
           - is_timestamp
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
+
+  - name: int_classroom_surveys_ethiopia
+    description: Add survey form data
+    +schema: intermediate
+    columns:
+      - name: '"KEY"'
+        description: The primary key for this table
+        tests:
+          - unique
+          - not_null
+        type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - is_timestamp
 
   - name: int_classroom_surveys_tamil_nadu
     description: Add survey form data
@@ -30,6 +50,10 @@ models:
         tests:
           - not_null
           - is_timestamp
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
 
   - name: int_classroom_surveys_karnataka
     description: Add survey form data
@@ -45,6 +69,10 @@ models:
         tests:
           - not_null
           - is_timestamp
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
 
   - name: int_classroom_surveys_indonesia
     description: Add survey form data
@@ -60,6 +88,10 @@ models:
         tests:
           - not_null
           - is_timestamp
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
 
   - name: int_classroom_surveys_uganda
     description: Add survey form data
@@ -75,3 +107,7 @@ models:
         tests:
           - not_null
           - is_timestamp
+      - name: region
+        description: "Submission date"
+        tests:
+          - not_null
