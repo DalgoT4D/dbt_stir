@@ -11,15 +11,15 @@ SELECT
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
-        WHEN (behavior = 'Safety') AND (score IN (1)) THEN 'Safety - A Few'
-        WHEN (behavior = 'Safety') AND (score IN (2)) THEN 'Safety - About Half'
-        WHEN (behavior = 'Safety') AND (score IN (3)) THEN 'Safety - Most'
+        WHEN (behavior = 'Engagement') AND (score IN (1)) THEN 'Engagement - A Few'
+        WHEN (behavior = 'Engagement') AND (score IN (2)) THEN 'Engagement - About Half'
+        WHEN (behavior = 'Engagement') AND (score IN (3)) THEN 'Engagement - Most'
         ELSE 'Other'
     END AS score_category,
     CASE 
-        WHEN subindicator IN ('s1') THEN 'Not punished physically'
-        WHEN subindicator IN ('s2') THEN 'Not ridiculed/yelled at'
-        WHEN subindicator IN ('s3') THEN 'Acknowledged for effort'
+        WHEN subindicator IN ('e1') THEN 'Followed instructions'
+        WHEN subindicator IN ('e2') THEN 'Participated in discussions'
+        WHEN subindicator IN ('c1') THEN 'Asked questions'
         ELSE 'Other' 
     END AS subindicator_category
 FROM 
@@ -28,6 +28,6 @@ WHERE
     score is not NULL
     AND behavior in ('Engagement', 'Curiosity & Critical Thinking')
     AND forms in ('cro_ug', 'cro', 'cro_indo')
-    AND subindicator IN ('s1', 's2', 's3')
+    AND subindicator IN ('e1', 'e2', 'c1')
 GROUP BY 
     region, submissiondate, "KEY", behavior, score, subindicator
