@@ -11,9 +11,9 @@ SELECT
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
-        WHEN (behavior = 'Self Esteem') AND (score IN (1)) THEN 'Self Esteem - A Few'
-        WHEN (behavior = 'Self Esteem') AND (score IN (2)) THEN 'Self Esteem - About Half'
-        WHEN (behavior = 'Self Esteem') AND (score IN (3)) THEN 'Self Esteem - Most'
+        WHEN (score IN (1)) THEN 'Self Esteem - A Few'
+        WHEN (score IN (2)) THEN 'Self Esteem - About Half'
+        WHEN (score IN (3)) THEN 'Self Esteem - Most'
         ELSE 'Other'
     END AS score_category,
     CASE 

@@ -11,9 +11,9 @@ SELECT
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
-        WHEN (behavior = 'Curiosity & Critical Thinking') AND (score IN (1)) THEN 'C&CT - A Few'
-        WHEN (behavior = 'Curiosity & Critical Thinking') AND (score IN (2)) THEN 'C&CT - About Half'
-        WHEN (behavior = 'Curiosity & Critical Thinking') AND (score IN (3)) THEN 'C&CT - Most'
+        WHEN (score IN (1)) THEN 'C&CT - A Few'
+        WHEN (score IN (2)) THEN 'C&CT - About Half'
+        WHEN (score IN (3)) THEN 'C&CT - Most'
         ELSE 'Other'
     END AS score_category,
     CASE 

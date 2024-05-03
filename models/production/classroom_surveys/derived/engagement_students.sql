@@ -11,9 +11,9 @@ SELECT
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
-        WHEN (behavior = 'Engagement') AND (score IN (1)) THEN 'Engagement - A Few'
-        WHEN (behavior = 'Engagement') AND (score IN (2)) THEN 'Engagement - About Half'
-        WHEN (behavior = 'Engagement') AND (score IN (3)) THEN 'Engagement - Most'
+        WHEN (score IN (1)) THEN 'Engagement - A Few'
+        WHEN (score IN (2)) THEN 'Engagement - About Half'
+        WHEN (score IN (3)) THEN 'Engagement - Most'
         ELSE 'Other'
     END AS score_category,
     CASE 
