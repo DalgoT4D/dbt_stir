@@ -32,4 +32,4 @@ WHERE
     AND subindicator IN ('s1', 's2', 's3')
 GROUP BY 
     region, submissiondate, "KEY", behavior, score, subindicator, sub_region
-HAVING region IS NOT NULL OR sub_region IS NOT NULL
+HAVING region IS NOT NULL AND sub_region IS NOT NULL

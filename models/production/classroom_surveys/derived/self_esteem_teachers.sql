@@ -33,4 +33,4 @@ WHERE
     AND forms in ('nm_indo','nm_art','nm','nm_ug','nm_coart')
 GROUP BY 
     region, submissiondate, "KEY", behavior, score, subindicator, sub_region
-HAVING region IS NOT NULL OR sub_region IS NOT NULL
+HAVING region IS NOT NULL AND sub_region IS NOT NULL

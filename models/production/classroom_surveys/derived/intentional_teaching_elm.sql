@@ -26,4 +26,4 @@ SELECT
 FROM base
 GROUP BY
     subindicator, role_coaching, region, submissiondate, "KEY", forms, sub_region, behavior
-HAVING region IS NOT NULL OR sub_region IS NOT NULL OR sub_region IS NOT NULL
+HAVING region IS NOT NULL AND sub_region IS NOT NULL OR sub_region IS NOT NULL

@@ -37,4 +37,4 @@ FROM
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
     region, submissiondate, "KEY", forms, sub_region, score
-HAVING region IS NOT NULL OR sub_region IS NOT NULL OR sub_region IS NOT NULL
+HAVING region IS NOT NULL AND sub_region IS NOT NULL OR sub_region IS NOT NULL

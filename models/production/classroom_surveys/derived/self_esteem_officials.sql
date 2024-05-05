@@ -33,4 +33,4 @@ WHERE
     AND forms in ('cc', 'dmpc', 'dam', 'cc_ug', 'el_ins', 'elm_ins', 'del_ins', 'sel_ins', 'dam_ug', 'duo_nb', 'dcm_indo', 'cc_indo', 'cat_ins', 'midterm_ug', 'dc_ins', 'sash_nb')
 GROUP BY 
     region, submissiondate, "KEY", behavior, score, subindicator, sub_region
-HAVING region IS NOT NULL OR sub_region IS NOT NULL
+HAVING region IS NOT NULL AND sub_region IS NOT NULL

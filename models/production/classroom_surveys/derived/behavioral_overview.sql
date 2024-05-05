@@ -42,4 +42,4 @@ SELECT
     SUM(CAST(CASE WHEN score = 3 THEN 1 ELSE 0 END AS FLOAT)) / CAST(COUNT(1) AS FLOAT) AS score_most
 FROM survey_data
 GROUP BY behavior, region, submissiondate, "KEY", score, score_category, sub_region
-HAVING region IS NOT NULL OR sub_region IS NOT NULL
+HAVING region IS NOT NULL AND sub_region IS NOT NULL
