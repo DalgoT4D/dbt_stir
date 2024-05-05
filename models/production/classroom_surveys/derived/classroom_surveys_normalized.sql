@@ -5,7 +5,7 @@
 
 
 with merged_normalized AS
-       (SELECT "KEY","submissiondate","observation_date","country","region","sub_region","forms", "forms_verbose", "observation_term","meeting",
+       (SELECT "KEY","submissiondate","observation_date","country","region","sub_region","forms", "forms_verbose", "observation_term","meeting","role_coaching",
        unnest(array['s1','s2','s3','s4',
                     'c1','c2','c3',
                     'e1','e2',
