@@ -4,9 +4,10 @@
 ) }}
 
 SELECT 
-    coalesce(region, 'Unknown') as region,
+    region,
     submissiondate,
     score,
+    sub_region,
     behavior,
     "KEY",
     subindicator,
@@ -17,4 +18,5 @@ SELECT
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region
+HAVING region IS NOT NULL AND sub_region IS NOT NULL

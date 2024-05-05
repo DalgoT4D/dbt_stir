@@ -4,7 +4,7 @@
 ) }}
 
 SELECT 
-    coalesce(region, 'Unknown') as region,
+    region,
     submissiondate,
     "KEY",
     score,
@@ -23,8 +23,18 @@ SELECT
     )) AS classroom_observations_count,
     COUNT(DISTINCT "KEY") FILTER (WHERE forms IN (
         'cc', 'cc_ug', 'cc_indo'
-    )) AS coaching_calls_count
+    )) AS coaching_calls_count,
+    COUNT(DISTINCT "KEY") FILTER (WHERE behavior IN (
+        'Curiosity & Critical Thinking'
+    ) AND score in (1, 2, 3)) AS c_and_ct_count,
+    COUNT(DISTINCT "KEY") FILTER (WHERE behavior IN (
+        'Engagement')) AS engagement_count,
+    COUNT(DISTINCT "KEY") FILTER (WHERE behavior IN (
+        'Safety')) AS safety_count,
+    COUNT(DISTINCT "KEY") FILTER (WHERE behavior IN (
+        'Self Esteem')) as self_esteem_count
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
     region, submissiondate, "KEY", forms, sub_region, score
+HAVING region IS NOT NULL AND sub_region IS NOT NULL OR sub_region IS NOT NULL
