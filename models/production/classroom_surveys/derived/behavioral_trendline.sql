@@ -15,3 +15,4 @@ SELECT  region,
                 end AS FLOAT)) / CAST(count(1) AS FLOAT) AS score_most
 FROM {{ ref('classroom_surveys_normalized') }}
 GROUP BY DATE_TRUNC('month', submissiondate), "KEY", score, forms, region, sub_region
+HAVING region IS NOT NULL OR sub_region IS NOT NULL OR sub_region IS NOT NULL

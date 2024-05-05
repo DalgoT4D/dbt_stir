@@ -4,9 +4,10 @@
 ) }}
 
 SELECT 
-    coalesce(region, 'Unknown') as region,
+    region,
     submissiondate,
     score,
+    sub_region,
     behavior,
     "KEY",
     COUNT("KEY") as count_keys,
@@ -30,4 +31,5 @@ WHERE
     AND forms in ('nm_indo','nm_art','nm','nm_ug','nm_coart')
     AND subindicator IN ('c1', 'e1', 'e2')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region
+HAVING region IS NOT NULL OR sub_region IS NOT NULL

@@ -15,7 +15,7 @@ WITH base AS (
 )
 
 SELECT
-    coalesce(region, 'Unknown') as region,
+    region,
     behavior,
     submissiondate,
     "KEY",
@@ -26,3 +26,4 @@ SELECT
 FROM base
 GROUP BY
     subindicator, role_coaching, region, submissiondate, "KEY", forms, sub_region, behavior
+HAVING region IS NOT NULL OR sub_region IS NOT NULL OR sub_region IS NOT NULL

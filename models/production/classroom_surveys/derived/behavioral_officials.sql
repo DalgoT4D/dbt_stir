@@ -4,10 +4,11 @@
 ) }}
 
 SELECT 
-    coalesce(region, 'Unknown') as region,
+    region,
     submissiondate,
     score,
     behavior,
+    sub_region,
     "KEY",
     COUNT(DISTINCT "KEY") FILTER (WHERE score IS NOT NULL AND behavior = 'Safety' AND forms IN ('dc_ins ', 'el_ins', 'elm_ins', 'dmpc', 'dam', 'dpo_nb', 'asshu_nb', 'cct_ins', 'del_ins', 'sel_ins', 'nm_ug', 'nm', 'nm_art', 'nm_coart', 'dcm_indo', 'dcac_indo', 'ss_indo', 'sp_indo', 'nm_indo', 'dam_ug', 'midterm_ug')) AS safety_count,
     COUNT(DISTINCT "KEY") FILTER (WHERE score IS NOT NULL AND (behavior = 'Engagement' OR behavior = 'Curiosity & Critical Thinking') AND subindicator IN ('c1', 'e1', 'e2') AND forms IN ('cc', 'dmpc', 'dam', 'cc_ug', 'el_ins', 'elm_ins', 'del_ins', 'sel_ins', 'dam_ug', 'duo_nb', 'dcm_indo', 'cc_indo', 'cat_ins', 'midterm_ug', 'dc_ins', 'sash_nb')) AS engagement_count,
@@ -16,4 +17,5 @@ SELECT
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score
+    region, submissiondate, "KEY", behavior, score, sub_region
+HAVING region IS NOT NULL OR sub_region IS NOT NULL

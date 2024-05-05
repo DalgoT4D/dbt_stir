@@ -4,9 +4,10 @@
 ) }}
 
 SELECT 
-    coalesce(region, 'Unknown') as region,
+    region,
     submissiondate,
     score,
+    sub_region,
     behavior,
     "KEY",
     COUNT("KEY") as count_keys,
@@ -30,4 +31,5 @@ WHERE
     AND behavior in ('Intentional Teaching')
     AND score <= 1.0
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region
+HAVING region IS NOT NULL OR sub_region IS NOT NULL

@@ -65,7 +65,7 @@ models:
               column_type: text
 
   - name: behavioral_officials
-    description: "merged and score normalized"
+    description: "behavioral officials"
     schema: production
     columns:
       - name: '"KEY"'
@@ -115,12 +115,12 @@ models:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: timestamp with time zone
-      - name: score
-        description: score
+      - name: score_category
+        description: score category
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: bigint
+              column_type: text
       - name: behavior
         description: behavior
         tests:
@@ -203,3 +203,97 @@ models:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: text
+
+  - name: behavioral_trendline
+    description: "behavioral trendline"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
+      - name: score
+        description: score
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: bigint
+      - name: forms
+        description: forms
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: region
+        description: region
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: sub_region
+        description: sub region
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: score_most
+        description: score most
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: double precision
+
+  - name: curiosity_critical_thinking_officials
+    description: "behavioral trendline"
+    schema: production
+    columns:
+      - name: '"KEY"'
+        description: "The primary key for this table"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
+      - name: submissiondate
+        description: "Submission date"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: timestamp with time zone
+      - name: score
+        description: score
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: bigint
+      - name: forms
+        description: forms
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: region
+        description: region
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: sub_region
+        description: sub region
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+      - name: score_most
+        description: score most
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: double precision

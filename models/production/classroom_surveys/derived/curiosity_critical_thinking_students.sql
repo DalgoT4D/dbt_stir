@@ -4,7 +4,8 @@
 ) }}
 
 SELECT 
-    coalesce(region, 'Unknown') as region,
+    region,
+    sub_region,
     submissiondate,
     score,
     behavior,
@@ -29,4 +30,5 @@ WHERE
     AND behavior in ('Curiosity & Critical Thinking')
     AND forms in ('cro_ug', 'cro', 'cro_indo')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region
+HAVING region IS NOT NULL OR sub_region IS NOT NULL
