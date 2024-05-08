@@ -7,8 +7,10 @@ WITH survey_data AS (
     SELECT
         behavior,
         region,
+        forms,
         sub_region,
         submissiondate,
+        country,
         CASE
             WHEN (behavior = 'Safety') AND (score IN (1)) THEN 'Safety - A Few'
             WHEN (behavior = 'Safety') AND (score IN (2)) THEN 'Safety - About Half'
@@ -36,10 +38,12 @@ SELECT
     score_category,
     region,
     sub_region,
+    country,
     submissiondate,
     "KEY",
+    forms,
     COUNT("KEY") AS count_keys,
     SUM(CAST(CASE WHEN score = 3 THEN 1 ELSE 0 END AS FLOAT)) / CAST(COUNT(1) AS FLOAT) AS score_most
 FROM survey_data
-GROUP BY behavior, region, submissiondate, "KEY", score, score_category, sub_region
+GROUP BY behavior, region, submissiondate, "KEY", score, score_category, sub_region, country, forms
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

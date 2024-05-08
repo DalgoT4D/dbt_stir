@@ -10,6 +10,7 @@ SELECT
     score,
     forms,
     sub_region,
+    country,
     COUNT(DISTINCT "KEY") FILTER (WHERE forms IN (
         'asshu_nb','asshu_ins','cct_ins','sel_ins','del_ins','dpo_nb',
         'dam_ug','mid_term_ug','el_ins','elm_ins','dam','dmpc',
@@ -36,5 +37,5 @@ SELECT
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
-    region, submissiondate, "KEY", forms, sub_region, score
+    region, submissiondate, "KEY", forms, sub_region, score, country
 HAVING region IS NOT NULL AND sub_region IS NOT NULL OR sub_region IS NOT NULL

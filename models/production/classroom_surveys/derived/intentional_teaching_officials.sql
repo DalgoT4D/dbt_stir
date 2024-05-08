@@ -7,8 +7,10 @@ SELECT
     region,
     submissiondate,
     score,
+    forms,
     sub_region,
     behavior,
+    country,
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
@@ -31,5 +33,5 @@ WHERE
     AND behavior in ('Intentional Teaching')
     AND score <= 1.0
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

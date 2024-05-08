@@ -7,8 +7,10 @@ SELECT
     region,
     submissiondate,
     score,
+    forms,
     sub_region,
     behavior,
+    country,
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
@@ -31,5 +33,5 @@ WHERE
     AND forms in ('cro_ug', 'cro', 'cro_indo')
     AND subindicator IN ('e1', 'e2', 'c1')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms
 HAVING region IS NOT NULL AND sub_region IS NOT NULL
