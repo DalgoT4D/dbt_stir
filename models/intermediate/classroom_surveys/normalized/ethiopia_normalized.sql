@@ -98,7 +98,7 @@ SELECT
     CAST(formdef_version AS bigint) AS formdef_version,
     observer_gender,
     observer_others,
-    region_ethiopia,
+    region_ethiopia as region,
     facilitator_role,
     meeting_coaching,
     observation_term,
