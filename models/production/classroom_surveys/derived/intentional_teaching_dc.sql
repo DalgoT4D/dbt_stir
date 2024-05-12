@@ -11,13 +11,14 @@ WITH base AS (
             ELSE NULL
         END AS filtered_score
     FROM {{ ref('classroom_surveys_normalized') }}
-    WHERE role_coaching = 'dc'
+    WHERE role_coaching = 'dc' and behavior = 'Intentional Teaching'
 )
 
 SELECT
     region,
     behavior,
     submissiondate,
+    score,
     country,
     "KEY",
     forms,
@@ -26,5 +27,5 @@ SELECT
     (SUM(filtered_score))::FLOAT / COUNT(filtered_score) AS ratio
 FROM base
 GROUP BY
-    subindicator, role_coaching, region, submissiondate, "KEY", forms, sub_region, behavior, country
+    role_coaching, region, submissiondate, "KEY", forms, sub_region, score, behavior, country
 HAVING region IS NOT NULL AND sub_region IS NOT NULL OR sub_region IS NOT NULL
