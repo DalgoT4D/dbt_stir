@@ -7,8 +7,10 @@ SELECT
     region,
     submissiondate,
     score,
+    forms,
     sub_region,
     behavior,
+    country,
     "KEY",
     subindicator,
     COUNT(DISTINCT "KEY") FILTER (WHERE behavior = 'Safety' AND forms IN ('cro_ug', 'cro', 'cro_indo') AND subindicator IN ('s1', 's2', 's3') AND score IS NOT NULL) AS safety_count,
@@ -18,5 +20,5 @@ SELECT
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

@@ -7,8 +7,10 @@ SELECT
     region,
     submissiondate,
     score,
+    forms,
     sub_region,
     behavior,
+    country,
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
@@ -31,5 +33,5 @@ WHERE
     AND behavior in ('Safety')
     AND forms in ('dc_ins ', 'el_ins', 'elm_ins', 'dmpc', 'dam', 'dpo_nb', 'asshu_nb', 'cct_ins', 'del_ins', 'sel_ins', 'nm_ug', 'nm', 'nm_art', 'nm_coart', 'dcm_indo', 'dcac_indo', 'ss_indo', 'sp_indo', 'nm_indo', 'dam_ug', 'midterm_ug')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms
 HAVING region IS NOT NULL AND sub_region IS NOT NULL
