@@ -20,7 +20,7 @@ SELECT
         ELSE 'Other'
     END AS score_category,
     CASE 
-        WHEN subindicator IN ('e1') THEN 'Followed instructions'
+        WHEN subindicator IN ('c1') THEN 'Followed instructions'
         WHEN subindicator IN ('c2') THEN 'Asked critical questions'
         WHEN subindicator IN ('c3') THEN 'Reflected on the lesson'
         ELSE 'Other' 

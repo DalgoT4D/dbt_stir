@@ -6,11 +6,11 @@
 SELECT 
     region,
     submissiondate,
+    country,
     "KEY",
     score,
     forms,
     sub_region,
-    country,
     COUNT(DISTINCT "KEY") FILTER (WHERE forms IN (
         'asshu_nb','asshu_ins','cct_ins','sel_ins','del_ins','dpo_nb',
         'dam_ug','mid_term_ug','el_ins','elm_ins','dam','dmpc',
@@ -27,15 +27,14 @@ SELECT
     )) AS coaching_calls_count,
     COUNT(DISTINCT "KEY") FILTER (WHERE behavior IN (
         'Curiosity & Critical Thinking'
-    ) AND score in (1, 2, 3)) AS c_and_ct_count,
+    ) AND score IN (1, 2, 3)) AS c_and_ct_count,
     COUNT(DISTINCT "KEY") FILTER (WHERE behavior IN (
         'Engagement')) AS engagement_count,
     COUNT(DISTINCT "KEY") FILTER (WHERE behavior IN (
         'Safety')) AS safety_count,
     COUNT(DISTINCT "KEY") FILTER (WHERE behavior IN (
-        'Self Esteem')) as self_esteem_count
+        'Self Esteem')) AS self_esteem_count
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
     region, submissiondate, "KEY", forms, sub_region, score, country
-HAVING region IS NOT NULL AND sub_region IS NOT NULL OR sub_region IS NOT NULL

@@ -7,6 +7,7 @@ select
 forms_ethiopia as forms,
 {{ dbt_utils.star(from= ref('ethiopia_normalized'), 
 except=['s1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','SubmissionDate','"CompletionDate"']) }},
+'Ethiopia' AS country,
 to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
 COALESCE(cro1, s1) as s1,
 COALESCE(cro2, s2) as s2,  
