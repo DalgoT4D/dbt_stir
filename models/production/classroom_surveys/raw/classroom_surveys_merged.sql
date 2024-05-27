@@ -4,42 +4,68 @@
 ) }}
 
 with initial_merge as ({{ dbt_utils.union_relations(
-    relations=[ref('int_classroom_surveys_uganda'),ref('int_classroom_surveys_indonesia'), ref('int_classroom_surveys_delhi'), ref('int_classroom_surveys_tamil_nadu'), ref('int_classroom_surveys_karnataka'), ref('int_classroom_surveys_ethiopia')],
+    relations=[ref('int_classroom_surveys_uganda'), ref('int_classroom_surveys_indonesia'), ref('int_classroom_surveys_delhi'), ref('int_classroom_surveys_tamil_nadu'), ref('int_classroom_surveys_karnataka'), ref('int_classroom_surveys_ethiopia')],
     exclude=["_airbyte_emitted_at", "_airbyte_normalized_at"]
 ) }})
 
-
 select *, 
-     CASE 
-        When forms = 'nm_indo' then 'Network Meeting Indonesia'
-        When forms = 'cc_indo' then 'Coaching Calls Indonesia'
-        When forms = 'cro_indo' then 'Classroom Observation Indonesia'
-        When forms = 'dcm_indo' then 'District Coordination Meeting Indonesia'
-        When forms = 'cc' then 'Coaching Calls'
-        When forms = 'cro' then 'Classroom Observations'    
-        When forms = 'nm' then 'Network Meeting'
-        When forms = 'nm_coart' then 'Network Meeting Co-Academic'
-        When forms = 'dmpc' then 'District Monthly Progress Checks'
-        When forms = 'nm' then 'Network Meeting'
-        When forms = 'nm_art' then 'Network Meeting Academic'
-        When forms = 'el_ins' then 'Education Leaders Institute'
-        When forms = 'elm_ins' then 'Education Leader Manager Institute'
-        When forms = 'dam' then 'District Alignment Meeting'
-        When forms = 'dc_ins' then 'District Champion Institute'
-        When forms = 'cc_ug' then 'Coaching calls uganda'
-        When forms = 'del_ins' then 'District Education Leader Institute'
-        When forms = 'cct_ins' then 'Center Coordinating Tutors Institute'
-        When forms = 'sel_ins' then 'School Education Leader Institute'
-        When forms = 'asshu_nb' then 'Association of Secondary School Headteachers of Uganda National Bootcamp'
-        When forms = 'dam_ug' then 'District Alignment Meeting Uganda'
-        When forms = 'nm_ug' then 'Network Meeting Uganda'
-        When forms = 'cro_ug' then 'Classroom Observation Uganda'
-        When forms = 'mid_term_ug' then 'Mid Term Meetups Uganda'
-        When forms = 'sp_indo' then 'School Principals Institute Indonesia'
-        When forms = 'dpo_nb' then 'District Personnel Officer National Bootcamp'
-        When forms = 'ss_indo' then 'School Supervisors Institute Indonesia'
-        When forms = 'dcac_indo' then 'District Coordinator/Area Coordinator Institute Indonesia'
-       END As forms_verbose
+    CASE 
+        WHEN forms = 'nm_indo' THEN 'Network Meeting Indonesia'
+        WHEN forms = 'cc_indo' THEN 'Coaching Calls Indonesia'
+        WHEN forms = 'cro_indo' THEN 'Classroom Observation Indonesia'
+        WHEN forms = 'dcm_indo' THEN 'District Coordination Meeting Indonesia'
+        WHEN forms = 'cc' THEN 'Coaching Calls'
+        WHEN forms = 'cro' THEN 'Classroom Observations'    
+        WHEN forms = 'nm' THEN 'Network Meeting'
+        WHEN forms = 'nm_coart' THEN 'Network Meeting Co-Academic'
+        WHEN forms = 'dmpc' THEN 'District Monthly Progress Checks'
+        WHEN forms = 'nm_art' THEN 'Network Meeting Academic'
+        WHEN forms = 'el_ins' THEN 'Education Leaders Institute'
+        WHEN forms = 'elm_ins' THEN 'Education Leader Manager Institute'
+        WHEN forms = 'dam' THEN 'District Alignment Meeting'
+        WHEN forms = 'dc_ins' THEN 'District Champion Institute'
+        WHEN forms = 'cc_ug' THEN 'Coaching Calls Uganda'
+        WHEN forms = 'del_ins' THEN 'District Education Leader Institute'
+        WHEN forms = 'cct_ins' THEN 'Center Coordinating Tutors Institute'
+        WHEN forms = 'sel_ins' THEN 'School Education Leader Institute'
+        WHEN forms = 'asshu_nb' THEN 'Association of Secondary School Headteachers of Uganda National Bootcamp'
+        WHEN forms = 'dam_ug' THEN 'District Alignment Meeting Uganda'
+        WHEN forms = 'nm_ug' THEN 'Network Meeting Uganda'
+        WHEN forms = 'cro_ug' THEN 'Classroom Observation Uganda'
+        WHEN forms = 'mid_term_ug' THEN 'Mid Term Meetups Uganda'
+        WHEN forms = 'sp_indo' THEN 'School Principals Institute Indonesia'
+        WHEN forms = 'dpo_nb' THEN 'District Personnel Officer National Bootcamp'
+        WHEN forms = 'ss_indo' THEN 'School Supervisors Institute Indonesia'
+        WHEN forms = 'dcac_indo' THEN 'District Coordinator/Area Coordinator Institute Indonesia'
+    END AS forms_verbose,
+    CASE 
+        WHEN forms = 'nm_indo' THEN 'Network Meeting'
+        WHEN forms = 'cc_indo' THEN 'Coaching Calls'
+        WHEN forms = 'cro_indo' THEN 'Classroom Observation'
+        WHEN forms = 'dcm_indo' THEN 'District Coordination Meeting'
+        WHEN forms = 'cc' THEN 'Coaching Calls'
+        WHEN forms = 'cro' THEN 'Classroom Observations'    
+        WHEN forms = 'nm' THEN 'Network Meeting'
+        WHEN forms = 'nm_coart' THEN 'Network Meeting Co-Academic'
+        WHEN forms = 'dmpc' THEN 'District Monthly Progress Checks'
+        WHEN forms = 'nm_art' THEN 'Network Meeting Academic'
+        WHEN forms = 'el_ins' THEN 'Education Leaders Institute'
+        WHEN forms = 'elm_ins' THEN 'Education Leader Manager Institute'
+        WHEN forms = 'dam' THEN 'District Alignment Meeting'
+        WHEN forms = 'dc_ins' THEN 'District Champion Institute'
+        WHEN forms = 'cc_ug' THEN 'Coaching Calls'
+        WHEN forms = 'del_ins' THEN 'District Education Leader Institute'
+        WHEN forms = 'cct_ins' THEN 'Center Coordinating Tutors Institute'
+        WHEN forms = 'sel_ins' THEN 'School Education Leader Institute'
+        WHEN forms = 'asshu_nb' THEN 'Association of Secondary School Headteachers of Uganda National Bootcamp'
+        WHEN forms = 'dam_ug' THEN 'District Alignment Meeting'
+        WHEN forms = 'nm_ug' THEN 'Network Meeting'
+        WHEN forms = 'cro_ug' THEN 'Classroom Observation'
+        WHEN forms = 'mid_term_ug' THEN 'Mid Term Meetups'
+        WHEN forms = 'sp_indo' THEN 'School Principals Institute'
+        WHEN forms = 'dpo_nb' THEN 'District Personnel Officer National Bootcamp'
+        WHEN forms = 'ss_indo' THEN 'School Supervisors Institute'
+        WHEN forms = 'dcac_indo' THEN 'District Coordinator/Area Coordinator Institute'
+    END AS forms_verbose_consolidated
 
-from initial_merge 
-      
+from initial_merge
