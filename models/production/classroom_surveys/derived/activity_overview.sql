@@ -11,6 +11,7 @@ SELECT
     score,
     forms,
     sub_region,
+    behavior,
     COUNT(DISTINCT "KEY") FILTER (WHERE forms IN (
         'asshu_nb','asshu_ins','cct_ins','sel_ins','del_ins','dpo_nb',
         'dam_ug','mid_term_ug','el_ins','elm_ins','dam','dmpc',
@@ -37,4 +38,4 @@ SELECT
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
-    region, submissiondate, "KEY", forms, sub_region, score, country
+    region, submissiondate, "KEY", forms, sub_region, score, country, behavior
