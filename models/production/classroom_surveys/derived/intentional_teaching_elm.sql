@@ -24,7 +24,11 @@ SELECT
     country,
     sub_region,
     role_coaching,
-    (SUM(filtered_score))::FLOAT / COUNT(filtered_score) AS ratio
+    (SUM(CASE WHEN subindicator = 'cc1' THEN filtered_score ELSE NULL END))::FLOAT / COUNT(CASE WHEN subindicator = 'cc1' THEN filtered_score ELSE NULL END) AS ratio_cc1,
+    (SUM(CASE WHEN subindicator = 'cc2' THEN filtered_score ELSE NULL END))::FLOAT / COUNT(CASE WHEN subindicator = 'cc2' THEN filtered_score ELSE NULL END) AS ratio_cc2,
+    (SUM(CASE WHEN subindicator = 'cc3' THEN filtered_score ELSE NULL END))::FLOAT / COUNT(CASE WHEN subindicator = 'cc3' THEN filtered_score ELSE NULL END) AS ratio_cc3,
+    (SUM(CASE WHEN subindicator = 'cc4' THEN filtered_score ELSE NULL END))::FLOAT / COUNT(CASE WHEN subindicator = 'cc4' THEN filtered_score ELSE NULL END) AS ratio_cc4,
+    (SUM(CASE WHEN subindicator = 'cc5' THEN filtered_score ELSE NULL END))::FLOAT / COUNT(CASE WHEN subindicator = 'cc5' THEN filtered_score ELSE NULL END) AS ratio_cc5
 FROM base
 GROUP BY
     region, behavior, submissiondate, "KEY", forms, country, sub_region, role_coaching, score
