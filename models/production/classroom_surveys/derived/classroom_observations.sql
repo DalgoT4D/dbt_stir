@@ -15,5 +15,5 @@ SELECT
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 WHERE forms IN (
-        'cro', 'cro_ug', 'cro_indo'
+        'cro', 'cro_ug', 'cro_indo', 'cro_eth'
     )

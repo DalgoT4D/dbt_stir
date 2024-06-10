@@ -10,6 +10,9 @@ with initial_merge as ({{ dbt_utils.union_relations(
 
 select *, 
     CASE 
+        WHEN forms = 'nm_eth' THEN 'Network Meeting Ethiopia'
+        WHEN forms = 'cro_eth' THEN 'Classroom Observation Ethiopia'
+        WHEN forms = 'cc_eth' THEN 'Coaching Calls Ethiopia'
         WHEN forms = 'nm_indo' THEN 'Network Meeting Indonesia'
         WHEN forms = 'cc_indo' THEN 'Coaching Calls Indonesia'
         WHEN forms = 'cro_indo' THEN 'Classroom Observation Indonesia'
@@ -40,6 +43,7 @@ select *,
     END AS forms_verbose,
     CASE 
         WHEN forms = 'nm_indo' THEN 'Network Meeting'
+        WHEN forms = 'nm_eth' THEN 'Network Meeting'
         WHEN forms = 'cc_indo' THEN 'Coaching Calls'
         WHEN forms = 'cro_indo' THEN 'Classroom Observation'
         WHEN forms = 'dcm_indo' THEN 'District Coordination Meeting'
@@ -54,6 +58,7 @@ select *,
         WHEN forms = 'dam' THEN 'District Alignment Meeting'
         WHEN forms = 'dc_ins' THEN 'District Champion Institute'
         WHEN forms = 'cc_ug' THEN 'Coaching Calls'
+        WHEN forms = 'cc_eth' THEN 'Coaching Calls'
         WHEN forms = 'del_ins' THEN 'District Education Leader Institute'
         WHEN forms = 'cct_ins' THEN 'Center Coordinating Tutors Institute'
         WHEN forms = 'sel_ins' THEN 'School Education Leader Institute'
@@ -61,6 +66,7 @@ select *,
         WHEN forms = 'dam_ug' THEN 'District Alignment Meeting'
         WHEN forms = 'nm_ug' THEN 'Network Meeting'
         WHEN forms = 'cro_ug' THEN 'Classroom Observation'
+        WHEN forms = 'cro_eth' THEN 'Classroom Observation'
         WHEN forms = 'mid_term_ug' THEN 'Mid Term Meetups'
         WHEN forms = 'sp_indo' THEN 'School Principals Institute'
         WHEN forms = 'dpo_nb' THEN 'District Personnel Officer National Bootcamp'
