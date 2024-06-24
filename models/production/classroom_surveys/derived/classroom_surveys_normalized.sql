@@ -7,6 +7,8 @@
 WITH merged_normalized AS (
     SELECT 
         "KEY",
+        "malepresent",
+        "femalepresent",
         "submissiondate",
         "observation_date",
         "remarks_qualitative",
