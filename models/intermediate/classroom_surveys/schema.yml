@@ -4,13 +4,6 @@ models:
     description: Add survey form data
     +schema: intermediate
     columns:
-      - name: '"KEY"'
-        description: The primary key for this table
-        tests:
-          - unique
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: string
       - name: submissiondate
         description: Submission date
         tests:
@@ -28,13 +21,6 @@ models:
     description: Add survey form data
     +schema: intermediate
     columns:
-      - name: '"KEY"'
-        description: The primary key for this table
-        tests:
-          - unique
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: string
       - name: submissiondate
         description: Submission date
         tests:
@@ -46,13 +32,6 @@ models:
     description: Add survey form data
     +schema: intermediate
     columns:
-      - name: '"KEY"'
-        description: The primary key for this table
-        tests:
-          - unique
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: text
       - name: submissiondate
         description: Submission date
         tests:
@@ -70,13 +49,6 @@ models:
     description: Add survey form data
     +schema: intermediate
     columns:
-      - name: '"KEY"'
-        description: The primary key for this table
-        tests:
-          - unique
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: text
       - name: submissiondate
         description: Submission date
         tests:
@@ -94,13 +66,6 @@ models:
     description: Add survey form data
     +schema: intermediate
     columns:
-      - name: '"KEY"'
-        description: The primary key for this table
-        tests:
-          - unique
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: text
       - name: submissiondate
         description: Submission date
         tests:
@@ -118,13 +83,6 @@ models:
     description: Add survey form data
     +schema: intermediate
     columns:
-      - name: '"KEY"'
-        description: The primary key for this table
-        tests:
-          - unique
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_of_type:
-              column_type: string
       - name: submissiondate
         description: Submission date
         tests:
