@@ -32,7 +32,11 @@ FROM
 WHERE 
     score in (1, 2, 3)
     AND behavior in ('Self Esteem')
-    AND forms in ('cc', 'dmpc', 'dam', 'cc_ug', 'el_ins', 'elm_ins', 'del_ins', 'sel_ins', 'dam_ug', 'duo_nb', 'dcm_indo', 'cc_indo', 'cat_ins', 'midterm_ug', 'dc_ins', 'sash_nb')
+    AND forms in ('dmpc', 'dam', 
+                  'el_ins', 'elm_ins', 
+                  'del_ins', 'sel_ins', 'dam_ug', 
+                  'dpo_nb', 'dcm_indo', 'cct_ins', 
+                  'midterm_ug', 'dc_ins', 'asshu_nb', 'ss_indo', 'sp_indo', 'dcac_indo')
 GROUP BY 
     region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms
 HAVING region IS NOT NULL AND sub_region IS NOT NULL
