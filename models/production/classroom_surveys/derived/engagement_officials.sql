@@ -34,7 +34,7 @@ WHERE
                   'el_ins', 'elm_ins', 
                   'del_ins', 'sel_ins', 'dam_ug', 
                   'dpo_nb', 'dcm_indo', 'cct_ins', 
-                  'midterm_ug', 'dc_ins', 'asshu_nb', 'ss_indo', 'sp_indo', 'dcac_indo')
+                  'midterm_ug', 'dc_ins', 'asshu_nb', 'ss_indo', 'sp_indo', 'dcac_indo', 'sam')
     AND subindicator IN ('c1', 'e1', 'e2')
 GROUP BY 
     region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms

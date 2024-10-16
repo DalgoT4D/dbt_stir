@@ -26,7 +26,7 @@ WITH merged_normalized AS (
                      'c1','c2','c3',
                      'e1','e2','e3',
                      'se1','se2','se3','se4','se5',
-                     'cc1','cc2','cc3', 'cc4', 'cc5',
+                     'cc1','cc2','cc3', 'cc4', 'cc5', 'gc1', 'gc2', 'gc3', 'gc4', 'gc5',
                      'ad1', 'ad2', 'ad3', 'ad4', 'ad5','ad7', 'ad8', 'ad9',
                      'sr1', 'sr2', 'sr3', 'sr4', 'sr5', 'sr6',
                      'cro13ai_behavior_engagement','cro13ai_behavior_safety','cro13ai_behavior_selfesteem',
@@ -45,7 +45,7 @@ WITH merged_normalized AS (
                      c1, c2, c3,
                      e1,e2,c1, -- alias c1 as e3
                      se1,se2,se3,se4,se5,
-                     cc1,cc2,cc3, cc4,cc5,
+                     cc1,cc2,cc3, cc4,cc5,gc1,gc2,gc3,gc4,gc5,
                      ad1, ad2, ad3, ad4, ad5,ad7, ad8, ad9,
                      sr1, sr2, sr3, sr4, sr5, sr6,
                      cro13ai_behavior_engagement,cro13ai_behavior_safety,cro13ai_behavior_selfesteem,
@@ -71,7 +71,7 @@ SELECT
         WHEN subindicator IN ('c1','c2','c3') THEN 'Curiosity & Critical Thinking'
         WHEN subindicator IN ('e1','e2','e3') THEN 'Engagement'
         WHEN subindicator IN ('se1','se2', 'se3', 'se4', 'se5') THEN 'Self Esteem'
-        WHEN subindicator IN ('cc1','cc2', 'cc3', 'cc4', 'cc5') THEN 'Intentional Teaching'
+        WHEN subindicator IN ('cc1','cc2', 'cc3', 'cc4', 'cc5', 'gc1', 'gc2', 'gc3', 'gc4', 'gc5') THEN 'Intentional Teaching'
         WHEN subindicator IN ('ad1', 'ad2', 'ad3', 'ad4', 'ad5','ad7', 'ad8', 'ad9') THEN 'Delhi Additional Indicators'
         WHEN subindicator IN ('sr1', 'sr2', 'sr3', 'sr4', 'sr5', 'sr6') THEN 'Delhi Co-ART Meeting Indicators'
         WHEN subindicator IN ('cro13ai_behavior_engagement','cro13ai_behavior_safety','cro13ai_behavior_selfesteem',

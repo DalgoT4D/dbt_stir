@@ -116,5 +116,10 @@ SELECT
     facilitator_gender,
     remarks,
     CAST(malepresent AS bigint) AS malepresent,
-    username
+    username,
+    CAST(gc1 AS bigint) AS gc1,
+    CAST(gc2 AS bigint) AS gc2,
+    CAST(gc3 AS bigint) AS gc3,
+    CAST(gc4 AS bigint) AS gc4,
+    CAST(gc5 AS bigint) AS gc5
 FROM cte
