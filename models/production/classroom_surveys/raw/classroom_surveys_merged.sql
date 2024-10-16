@@ -10,6 +10,8 @@ with initial_merge as ({{ dbt_utils.union_relations(
 
 select *, 
     CASE 
+        WHEN forms = 'sam' THEN 'State Alignment Meeting'
+        WHEN forms = 'gc_indo' THEN 'Group Coaching Indonesia'
         WHEN forms = 'nm_eth' THEN 'Network Meeting Ethiopia'
         WHEN forms = 'cro_eth' THEN 'Classroom Observation Ethiopia'
         WHEN forms = 'cc_eth' THEN 'Coaching Calls Ethiopia'
