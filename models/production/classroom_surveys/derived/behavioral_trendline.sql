@@ -8,6 +8,7 @@ SELECT  region,
         "KEY",
         score,
         forms,
+        program,
         sub_region,
         country,
         sum(CAST(case
@@ -15,5 +16,5 @@ SELECT  region,
                     else 0
                 end AS FLOAT)) / CAST(count(1) AS FLOAT) AS score_most
 FROM {{ ref('classroom_surveys_normalized') }}
-GROUP BY DATE_TRUNC('month', submissiondate), "KEY", score, forms, region, sub_region, country
+GROUP BY DATE_TRUNC('month', submissiondate), "KEY", score, forms, region, sub_region, country, program
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

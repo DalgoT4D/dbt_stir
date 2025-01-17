@@ -16,6 +16,7 @@ WITH base AS (
 
 SELECT
     region,
+    program,
     behavior,
     submissiondate,
     score,
@@ -31,5 +32,5 @@ SELECT
     (SUM(CASE WHEN subindicator = 'cc5' THEN filtered_score ELSE NULL END))::FLOAT / COUNT(CASE WHEN subindicator = 'cc5' THEN filtered_score ELSE NULL END) AS ratio_cc5
 FROM base
 GROUP BY
-    role_coaching, region, submissiondate, "KEY", forms, sub_region, score, behavior, country
+    role_coaching, region, submissiondate, "KEY", forms, sub_region, score, behavior, country, program
 HAVING region IS NOT NULL AND sub_region IS NOT NULL OR sub_region IS NOT NULL

@@ -4,6 +4,7 @@
 ) }}
 
 SELECT 
+    program,
     region,
     submissiondate,
     country,

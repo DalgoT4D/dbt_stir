@@ -3,7 +3,8 @@
   schema=generate_schema_name('prod', this)
 ) }}
 
-SELECT 
+SELECT
+    program, 
     region,
     submissiondate,
     country,
@@ -41,4 +42,4 @@ FROM
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
     region, submissiondate, "KEY", forms, sub_region, score, country, behavior, malepresent,
-    femalepresent
+    femalepresent, program

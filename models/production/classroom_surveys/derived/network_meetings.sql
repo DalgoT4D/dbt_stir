@@ -5,6 +5,7 @@
 
 SELECT 
     region,
+    program,
     submissiondate,
     country,
     "KEY",

@@ -5,6 +5,7 @@
 
 SELECT 
     region,
+    program,
     submissiondate,
     score,
     forms,
@@ -32,5 +33,5 @@ WHERE
     AND behavior in ('Curiosity & Critical Thinking')
     AND forms in ('nm_indo','nm_art','nm','nm_ug','nm_coart')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

@@ -5,6 +5,7 @@
 
 SELECT 
   "KEY",
+  "program",
   "submissiondate",
   "observation_date",
   "remarks_qualitative",
