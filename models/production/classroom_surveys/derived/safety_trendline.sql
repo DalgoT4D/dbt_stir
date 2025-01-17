@@ -18,7 +18,8 @@ SELECT
   "role_coaching",
   behavior,
   subindicator,
-  score
+  score,
+  program
 FROM {{ ref('classroom_surveys_normalized') }}
 WHERE 
   behavior = 'Safety'

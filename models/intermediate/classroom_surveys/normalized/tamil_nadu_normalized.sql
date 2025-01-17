@@ -12,6 +12,7 @@ with cte as (
 
 SELECT 
     starttime,
+    null as program,
     "SubmissionDate",
     coachee_gender,
     c2a,

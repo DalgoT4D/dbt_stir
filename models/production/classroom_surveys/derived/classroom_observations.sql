@@ -11,6 +11,7 @@ SELECT
     score,
     forms,
     sub_region,
+    program,
     behavior
 FROM 
     {{ ref('classroom_surveys_normalized') }}

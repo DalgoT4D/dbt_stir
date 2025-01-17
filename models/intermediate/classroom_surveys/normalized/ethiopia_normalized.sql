@@ -10,7 +10,8 @@ with cte as (
   ) }}
 )
 
-SELECT 
+SELECT
+    null as program, 
     CAST(c1 AS bigint) AS c1,
     CAST(c2 AS bigint) AS c2,
     CAST(c3 AS bigint) AS c3,

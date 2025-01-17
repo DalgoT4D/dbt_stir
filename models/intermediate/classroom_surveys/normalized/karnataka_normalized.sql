@@ -12,6 +12,7 @@ with cte as (
 
 SELECT 
     date,
+    null as program,
     n1,
     n2,
     n3,

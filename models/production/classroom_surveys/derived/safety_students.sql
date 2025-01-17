@@ -5,6 +5,7 @@
 
 SELECT 
     region,
+    program,
     submissiondate,
     score,
     forms,
@@ -33,5 +34,5 @@ WHERE
     AND forms in ('cro_ug', 'cro', 'cro_indo')
     AND subindicator IN ('s1', 's2', 's3')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

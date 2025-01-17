@@ -10,7 +10,7 @@ with cte as (
   ) }}
 )
 
-SELECT 
+SELECT
     CAST(coach_gender_female AS bigint) AS coach_gender_female,
     program,
     starttime,

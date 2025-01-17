@@ -11,6 +11,7 @@ SELECT
     sub_region,
     behavior,
     country,
+    program,
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
@@ -34,5 +35,5 @@ WHERE
     AND behavior in ('Self Esteem')
     AND forms in ('nm_indo','nm_art','nm','nm_ug','nm_coart')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

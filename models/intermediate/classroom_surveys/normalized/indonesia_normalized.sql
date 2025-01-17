@@ -10,7 +10,8 @@ with cte as (
   ) }}
 )
 
-SELECT 
+SELECT
+    programme as program, 
     starttime,
     "SubmissionDate",
     coachee_gender,

@@ -11,6 +11,7 @@ with cte as (
 )
 
 SELECT 
+    null as program,
     cro13aiii_exit_ticket::bigint,
     cro13aiii_spaced_practice::bigint,
     cro13aiii_formative_assessment_strategies::bigint,

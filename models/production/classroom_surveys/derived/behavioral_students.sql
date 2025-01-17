@@ -5,6 +5,7 @@
 
 SELECT 
     region,
+    program,
     submissiondate,
     score,
     forms,
@@ -20,5 +21,5 @@ SELECT
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

@@ -4,6 +4,7 @@
 ) }}
 
 SELECT 
+  "program"
   "KEY",
   "submissiondate",
   "observation_date",
