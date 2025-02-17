@@ -21,7 +21,7 @@ WITH merged_normalized AS (
         "forms_verbose_consolidated", 
         "observation_term",
         "plname",
-        "education_level"
+        "education_level",
         "meeting",
         "role_coaching",
         unnest(array['s1','s2','s3','s4',

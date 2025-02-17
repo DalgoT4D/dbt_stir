@@ -12,6 +12,8 @@ SELECT
     behavior,
     country,
     program,
+    plname,
+    education_level,
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
@@ -34,5 +36,5 @@ WHERE
     score in (1, 2, 3)
     AND forms in ('gc_indo')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program, plname, education_level
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

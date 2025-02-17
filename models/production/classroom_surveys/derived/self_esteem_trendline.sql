@@ -19,7 +19,9 @@ SELECT
   behavior,
   subindicator,
   score,
-  program
+  program,
+  plname,
+  education_level
 FROM {{ ref('classroom_surveys_normalized') }}
 WHERE 
   behavior = 'Self Esteem'

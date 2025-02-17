@@ -19,7 +19,9 @@ SELECT
   "role_coaching",
   behavior,
   subindicator,
-  score
+  score,
+  plname,
+  education_level
 FROM {{ ref('classroom_surveys_normalized') }}
 WHERE 
   behavior = 'Engagement'

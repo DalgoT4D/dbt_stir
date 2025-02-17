@@ -15,6 +15,8 @@ SELECT
     behavior,
     malepresent,
     femalepresent,
+    plname,
+    education_level,
     COUNT(DISTINCT "KEY") FILTER (WHERE forms IN (
         'asshu_nb','asshu_ins','cct_ins','sel_ins','del_ins','dpo_nb',
         'dam_ug','mid_term_ug','el_ins','elm_ins','dam','dmpc',
@@ -42,4 +44,4 @@ FROM
     {{ ref('classroom_surveys_normalized') }}
 GROUP BY 
     region, submissiondate, "KEY", forms, sub_region, score, country, behavior, malepresent,
-    femalepresent, program
+    femalepresent, program, plname, education_level
