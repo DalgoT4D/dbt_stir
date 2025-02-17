@@ -17,6 +17,8 @@ SELECT
   "observation_term",
   "meeting",
   "role_coaching",
+  plname,
+  education_level,
   behavior,
   subindicator,
   score

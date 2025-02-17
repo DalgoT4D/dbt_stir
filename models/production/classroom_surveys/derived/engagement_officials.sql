@@ -12,6 +12,8 @@ SELECT
     sub_region,
     behavior,
     country,
+    plname,
+    education_level,
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
@@ -38,5 +40,5 @@ WHERE
                   'midterm_ug', 'dc_ins', 'asshu_nb', 'ss_indo', 'sp_indo', 'dcac_indo', 'sam')
     AND subindicator IN ('c1', 'e1', 'e2')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program, plname, education_level
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

@@ -12,7 +12,9 @@ SELECT
     score,
     forms,
     sub_region,
-    behavior
+    behavior,
+    plname,
+    education_level
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 WHERE forms IN (
