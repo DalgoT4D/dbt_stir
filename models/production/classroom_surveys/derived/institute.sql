@@ -14,6 +14,7 @@ SELECT
     sub_region,
     behavior,
     plname,
+    observation_term,
     education_level
 FROM 
     {{ ref('classroom_surveys_normalized') }}

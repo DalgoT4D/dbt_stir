@@ -27,8 +27,9 @@ SELECT
     role_coaching,
     plname,
     education_level,
+    observation_term,
     (SUM(filtered_score))::FLOAT / COUNT(filtered_score) AS ratio
 FROM base
 GROUP BY
-    role_coaching, region, submissiondate, "KEY", forms, sub_region, score, behavior, country, program, plname, education_level
+    role_coaching, region, submissiondate, "KEY", forms, sub_region, score, behavior, country, program, plname, education_level, observation_term
 HAVING region IS NOT NULL AND sub_region IS NOT NULL OR sub_region IS NOT NULL

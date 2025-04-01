@@ -14,6 +14,7 @@ SELECT
     country,
     plname,
     education_level,
+    observation_term,
     "KEY",
     COUNT("KEY") as count_keys,
     CASE
@@ -35,5 +36,5 @@ WHERE
     AND behavior in ('Curiosity & Critical Thinking')
     AND forms in ('cro_ug', 'cro', 'cro_indo')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program, plname, education_level
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program, plname, education_level, observation_term
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

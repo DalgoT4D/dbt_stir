@@ -14,7 +14,8 @@ SELECT
     sub_region,
     behavior,
     plname,
-    education_level
+    education_level,
+    observation_term
 FROM 
     {{ ref('classroom_surveys_normalized') }}
 WHERE forms IN (
