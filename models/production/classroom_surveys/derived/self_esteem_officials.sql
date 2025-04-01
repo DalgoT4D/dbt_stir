@@ -16,6 +16,7 @@ SELECT
     education_level,
     "KEY",
     COUNT("KEY") as count_keys,
+    observation_term,
     CASE
         WHEN (score IN (1)) THEN 'Self Esteem - A Few'
         WHEN (score IN (2)) THEN 'Self Esteem - About Half'
@@ -41,5 +42,5 @@ WHERE
                   'dpo_nb', 'dcm_indo', 'cct_ins', 
                   'midterm_ug', 'dc_ins', 'asshu_nb', 'ss_indo', 'sp_indo', 'dcac_indo', 'sam')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program, plname, education_level
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program, plname, education_level, observation_term
 HAVING region IS NOT NULL AND sub_region IS NOT NULL

@@ -16,6 +16,7 @@ SELECT
     plname,
     education_level,
     COUNT("KEY") as count_keys,
+    observation_term,
     CASE
         WHEN (score IN (1)) THEN 'Safety - A Few'
         WHEN (score IN (2)) THEN 'Safety - About Half'
@@ -39,5 +40,5 @@ WHERE
     'del_ins', 'sel_ins', 'nm_ug', 'nm', 'nm_art', 'nm_coart', 'dcm_indo', 
     'dcac_indo', 'ss_indo', 'sp_indo', 'nm_indo', 'dam_ug', 'midterm_ug', 'sam')
 GROUP BY 
-    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program, plname, education_level
+    region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program, plname, education_level, observation_term
 HAVING region IS NOT NULL AND sub_region IS NOT NULL
