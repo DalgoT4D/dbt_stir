@@ -11,7 +11,7 @@ WITH base AS (
             ELSE NULL
         END AS filtered_score
     FROM {{ ref('classroom_surveys_normalized') }}
-    WHERE role_coaching = 'dc' and behavior = 'Intentional Teaching'
+    WHERE (role_coaching = 'dc' or role_coaching = 'asshu' or role_coaching = 'dpo') and behavior = 'Intentional Teaching'
 )
 
 SELECT
