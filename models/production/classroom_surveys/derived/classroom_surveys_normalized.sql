@@ -130,7 +130,7 @@ classified AS (
                  THEN 'Delhi Additional Indicators'
 
             WHEN subindicator IN ('sr1','sr2','sr3','sr4','sr5','sr6')
-                 THEN 'Delhi Co‑ART Meeting Indicators'
+                 THEN 'Delhi Co‑ART Meeting Indicators'
 
             WHEN subindicator IN (
                  'cro13ai_behavior_engagement','cro13ai_behavior_safety','cro13ai_behavior_selfesteem',
@@ -151,7 +151,7 @@ classified AS (
                  'cro13av_growth_mindset','cro13av_normalising_error',
                  'cro13b','cro13c'
             )
-                 THEN 'Additional CRO Indicators'
+                 THEN 'Additional CRO Indicators'
 
             ELSE 'Other'
         END                                                   AS behavior
@@ -161,19 +161,59 @@ classified AS (
 ),
 
 ------------------------------------------------------------------------------
+-- 3️⃣.1  Transform scores for specific subindicators and forms
+------------------------------------------------------------------------------
+score_transformed AS (
+    SELECT 
+        classified.*,
+        CASE 
+            WHEN forms IN ('cro_ug', 'cro', 'cro_indo') 
+            AND subindicator IN ('s1', 's2')
+            AND score = 3 THEN 1
+            WHEN forms IN ('cro_ug', 'cro', 'cro_indo') 
+            AND subindicator IN ('s1', 's2')
+            AND score = 1 THEN 3
+            ELSE score
+        END as transformed_score
+    FROM classified
+),
+
+------------------------------------------------------------------------------
 -- 4️⃣  Deduplicate: keep the *latest* row per key_subindicator_key
 ------------------------------------------------------------------------------
 deduped AS (
 
-    SELECT *
+    SELECT 
+        key_subindicator_key,
+        "KEY",
+        malepresent,
+        femalepresent,
+        submissiondate,
+        observation_date,
+        remarks_qualitative,
+        country,
+        region,
+        sub_region,
+        program,
+        forms,
+        forms_verbose,
+        forms_verbose_consolidated,
+        observation_term,
+        plname,
+        education_level,
+        meeting,
+        role_coaching,
+        subindicator,
+        transformed_score as score,
+        behavior
     FROM (
         SELECT
-            classified.*,
+            score_transformed.*,
             ROW_NUMBER() OVER (
                 PARTITION BY key_subindicator_key
                 ORDER BY submissiondate DESC        -- earliest → ASC
             ) AS rn
-        FROM classified
+        FROM score_transformed
     ) ranked
     WHERE rn = 1
 )
