@@ -112,11 +112,14 @@ classified AS (
         CASE
             WHEN subindicator IN ('s1','s2','s3','s4')
                  THEN 'Safety'
+            
+            WHEN subindicator IN ('c1')
+                 THEN 'Curiosity & Critical Thinking and Engagement'
 
-            WHEN subindicator IN ('c1','c2','c3')
+            WHEN subindicator IN ('c2','c3')
                  THEN 'Curiosity & Critical Thinking'
 
-            WHEN subindicator IN ('e1','e2','c1')
+            WHEN subindicator IN ('e1','e2')
                  THEN 'Engagement'
 
             WHEN subindicator IN ('se1','se2','se3','se4','se5')
