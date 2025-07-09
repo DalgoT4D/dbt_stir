@@ -25,6 +25,9 @@ WITH survey_data AS (
             WHEN (behavior = 'Engagement') AND (score IN (1)) THEN 'Engagement - A Few'
             WHEN (behavior = 'Engagement') AND (score IN (2)) THEN 'Engagement - About Half'
             WHEN (behavior = 'Engagement') AND (score IN (3)) THEN 'Engagement - Most'
+            WHEN (behavior = 'Curiosity & Critical Thinking and Engagement') AND (score IN (1)) THEN 'Engagement - A Few'
+            WHEN (behavior = 'Curiosity & Critical Thinking and Engagement') AND (score IN (2)) THEN 'Engagement - About Half'
+            WHEN (behavior = 'Curiosity & Critical Thinking and Engagement') AND (score IN (3)) THEN 'Engagement - Most'
             WHEN (behavior = 'Curiosity & Critical Thinking') AND (score IN (1)) THEN 'C&CT - A Few'
             WHEN (behavior = 'Curiosity & Critical Thinking') AND (score IN (2)) THEN 'C&CT - About Half'
             WHEN (behavior = 'Curiosity & Critical Thinking') AND (score IN (3)) THEN 'C&CT - Most'
@@ -34,7 +37,7 @@ WITH survey_data AS (
         "KEY"
     FROM {{ ref('classroom_surveys_normalized') }}
     WHERE score IN (1, 2, 3)
-        AND behavior IN ('Safety', 'Self Esteem', 'Engagement', 'Curiosity & Critical Thinking')
+        AND behavior IN ('Safety', 'Self Esteem', 'Engagement', 'Curiosity & Critical Thinking', 'Curiosity & Critical Thinking and Engagement')
 )
 
 SELECT

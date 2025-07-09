@@ -9,7 +9,7 @@ SELECT
 FROM 
         {{ ref('classroom_surveys_normalized') }}
 WHERE 
-    behavior = 'Curiosity & Critical Thinking'
+    behavior IN ('Curiosity & Critical Thinking', 'Curiosity & Critical Thinking and Engagement')
     AND score IN (1, 2, 3)
 GROUP BY 
     submissiondate, score

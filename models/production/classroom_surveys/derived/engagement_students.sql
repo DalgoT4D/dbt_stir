@@ -33,7 +33,7 @@ FROM
     {{ ref('classroom_surveys_normalized') }}
 WHERE 
     score is not NULL
-    AND behavior in ('Engagement', 'Curiosity & Critical Thinking')
+    AND behavior in ('Curiosity & Critical Thinking and Engagement', 'Curiosity & Critical Thinking')
     AND forms in ('cro_ug', 'cro', 'cro_indo')
     AND subindicator IN ('e1', 'e2', 'c1')
 GROUP BY 
