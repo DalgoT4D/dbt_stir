@@ -33,7 +33,7 @@ FROM
     {{ ref('classroom_surveys_normalized') }}
 WHERE 
     score is not NULL
-    AND behavior in ('Curiosity & Critical Thinking', 'Curiosity & Critical Thinking and Engagement')
+    AND behavior in ('Curiosity & Critical Thinking')
     AND forms in ('nm_indo','nm_art','nm','nm_ug','nm_coart')
 GROUP BY 
     region, submissiondate, "KEY", behavior, score, subindicator, sub_region, country, forms, program, plname, education_level, observation_term

@@ -4,7 +4,7 @@
 ) }}
 
 ------------------------------------------------------------------------------
--- 1️⃣  Raw‑to‑long transformation
+-- Raw‑to‑long transformation
 ------------------------------------------------------------------------------
 WITH merged_normalized AS (
 
@@ -89,7 +89,7 @@ WITH merged_normalized AS (
 ),
 
 ------------------------------------------------------------------------------
--- 2️⃣  Deterministic surrogate key: "KEY" + subindicator  → key_subindicator_key
+-- Deterministic surrogate key: "KEY" + subindicator  → key_subindicator_key
 ------------------------------------------------------------------------------
 with_primary_key AS (
 
@@ -102,6 +102,46 @@ with_primary_key AS (
 ),
 
 ------------------------------------------------------------------------------
+-- Duplicate c1 rows as e3 for dual classification
+------------------------------------------------------------------------------
+c1_duplicated AS (
+
+    SELECT
+        "KEY",
+        "malepresent",
+        "femalepresent",
+        "submissiondate",
+        "observation_date",
+        "remarks_qualitative",
+        "country",
+        "region",
+        "sub_region",
+        "program",
+        "forms",
+        "forms_verbose",
+        "forms_verbose_consolidated",
+        "observation_term",
+        "plname",
+        "education_level",
+        "meeting",
+        "role_coaching",
+        'e3' AS subindicator,
+        score,
+        {{ dbt_utils.generate_surrogate_key(['"KEY"', "'e3'"]) }} AS key_subindicator_key
+    FROM with_primary_key
+    WHERE subindicator = 'c1'
+
+),
+
+------------------------------------------------------------------------------
+-- Union duplicated with original
+------------------------------------------------------------------------------
+with_duplicates AS (
+    SELECT * FROM with_primary_key
+    UNION ALL
+    SELECT * FROM c1_duplicated
+),
+------------------------------------------------------------------------------
 -- 3️⃣  Add behavior bucket & ignore NULL scores
 ------------------------------------------------------------------------------
 classified AS (
@@ -112,14 +152,11 @@ classified AS (
         CASE
             WHEN subindicator IN ('s1','s2','s3','s4')
                  THEN 'Safety'
-            
-            WHEN subindicator IN ('c1')
-                 THEN 'Curiosity & Critical Thinking and Engagement'
 
-            WHEN subindicator IN ('c2','c3')
+            WHEN subindicator IN ('c1', 'c2','c3')
                  THEN 'Curiosity & Critical Thinking'
 
-            WHEN subindicator IN ('e1','e2')
+            WHEN subindicator IN ('e1','e2','e3')
                  THEN 'Engagement'
 
             WHEN subindicator IN ('se1','se2','se3','se4','se5')
@@ -159,12 +196,12 @@ classified AS (
             ELSE 'Other'
         END                                                   AS behavior
 
-    FROM with_primary_key  AS wp
+    FROM with_duplicates  AS wp
     WHERE score IS NOT NULL
 ),
 
 ------------------------------------------------------------------------------
--- 3️⃣.1  Transform scores for specific subindicators and forms
+-- Transform scores for specific subindicators and forms
 ------------------------------------------------------------------------------
 score_transformed AS (
     SELECT 
@@ -182,7 +219,7 @@ score_transformed AS (
 ),
 
 ------------------------------------------------------------------------------
--- 4️⃣  Deduplicate: keep the *latest* row per key_subindicator_key
+-- Deduplicate: keep the *latest* row per key_subindicator_key
 ------------------------------------------------------------------------------
 deduped AS (
 
@@ -222,7 +259,7 @@ deduped AS (
 )
 
 ------------------------------------------------------------------------------
--- 5️⃣  Final result
+-- Final result
 ------------------------------------------------------------------------------
 SELECT *
 FROM   deduped

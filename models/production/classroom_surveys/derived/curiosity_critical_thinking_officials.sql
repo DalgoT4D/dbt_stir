@@ -33,7 +33,7 @@ FROM
     {{ ref('classroom_surveys_normalized') }}
 WHERE 
     score is not NULL
-    AND behavior in ('Curiosity & Critical Thinking', 'Curiosity & Critical Thinking and Engagement')
+    AND behavior in ('Curiosity & Critical Thinking')
     AND forms in ('dmpc', 'dam', 
                   'el_ins', 'elm_ins', 
                   'del_ins', 'sel_ins', 'dam_ug', 
