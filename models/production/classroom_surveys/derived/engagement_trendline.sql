@@ -24,4 +24,4 @@ SELECT
   education_level
 FROM {{ ref('classroom_surveys_normalized') }}
 WHERE 
-  behavior IN ('Engagement', 'Curiosity & Critical Thinking and Engagement')
+  behavior IN ('Engagement')
