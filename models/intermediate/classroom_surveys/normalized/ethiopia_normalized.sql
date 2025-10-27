@@ -1,26 +1,13 @@
 {{ config(
-  materialized='table',
-  schema=generate_schema_name('prod_intermediate', this)
+  materialized='table'
 ) }}
 
-with cte as (
-  {{ flatten_json(
-      model_name = source('source_classroom_surveys', 'ethiopia'),
-      json_column = 'data'
-  ) }}
-)
-
 SELECT
-    null as program, 
     CAST(c1 AS bigint) AS c1,
     CAST(c2 AS bigint) AS c2,
     CAST(c3 AS bigint) AS c3,
     CAST(e1 AS bigint) AS e1,
     CAST(e2 AS bigint) AS e2,
-    n1,
-    n2,
-    n3,
-    n4,
     CAST(s1 AS bigint) AS s1,
     CAST(s2 AS bigint) AS s2,
     CAST(s3 AS bigint) AS s3,
@@ -53,21 +40,13 @@ SELECT
     CAST(cro12 AS bigint) AS cro12,
     cro7a,
     cro8a,
-    b_secb,
     caseid,
-    cro13a,
-    CAST(cro13b AS bigint) AS cro13b,
-    CAST(cro13c AS bigint) AS cro13c,
-    n_seca,
-    n_secc,
+    CASE WHEN btrim(cro13a) ~ '^[0-9]+$' THEN btrim(cro13a)::bigint ELSE NULL END AS cro13a,
+    CASE WHEN btrim(cro13b) ~ '^[0-9]+$' THEN btrim(cro13b)::bigint ELSE NULL END AS cro13b,
+    CASE WHEN btrim(cro13c) ~ '^[0-9]+$' THEN btrim(cro13c)::bigint ELSE NULL END AS cro13c,
+    cro13av,
     endtime,
     meeting,
-    n1_secd,
-    n1_sece,
-    n2_sece,
-    n3_sece,
-    n4_sece,
-    n5_sece,
     remarks,
     woredas,
     deviceid,
@@ -75,7 +54,7 @@ SELECT
     CAST(expected AS bigint) AS expected,
     username,
     starttime,
-    CAST(cro13av_na AS bigint) AS cro13av_na,
+    formdef_id,
     "instanceID",
     device_info,
     CAST(malepresent AS bigint) AS malepresent,
@@ -84,9 +63,7 @@ SELECT
     date_coaching,
     CAST(femalepresent AS bigint) AS femalepresent,
     observer_role,
-    review_status,
     role_coaching,
-    "CompletionDate",
     "SubmissionDate",
     coachee_gender,
     devicephonenum,
@@ -95,11 +72,10 @@ SELECT
     teacher_gender,
     teacher_others,
     zones_ethiopia,
-    CAST(cro13av_dev_cro AS bigint) AS cro13av_dev_cro,
     CAST(formdef_version AS bigint) AS formdef_version,
     observer_gender,
     observer_others,
-    region_ethiopia as region,
+    region_ethiopia,
     facilitator_role,
     meeting_coaching,
     observation_term,
@@ -110,5 +86,13 @@ SELECT
     facilitator_gender,
     facilitator_others,
     name_of_the_coachee,
-    facilitator_role_coaching
-FROM cte
+    coach_gender_specify,
+    coachee_gender_specify,
+    facilitator_role_coaching,
+    _airbyte_raw_id,
+    _airbyte_extracted_at,
+    _airbyte_meta
+    -- Extra fields retained as comments:
+    -- program, n1, n2, n3, n4, b_secb, n_seca, n_secc, n1_secd, n1_sece, n2_sece, n3_sece, n4_sece, n5_sece,
+    -- review_status, "CompletionDate", cro13av_na, cro13av_dev_cro, region (renamed as region_ethiopia)
+FROM {{ source('source_classroom_surveys_new', 'ethiopia_data') }}

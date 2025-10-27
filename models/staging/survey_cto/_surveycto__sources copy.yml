@@ -22,3 +22,26 @@ sources:
       - name: ethiopia
         identifier: ethiopia_stir_bm_202324
         description: One record per form data.
+
+  - name: source_classroom_surveys_new
+    schema: new_staging
+    tables:
+      - name: uganda_data
+        identifier: SurveyCTO_Data
+        description: One record per form data.
+      - name: indonesia_data
+        identifier: Indonesia_Data
+        description: One record per form data.  
+      - name: kt_data
+        identifier: KT_Data
+        description: One record per form data.   
+      - name: tn_data
+        identifier: TN_Data
+        description: One record per form data.    
+      - name: ethiopia_data
+        identifier: Ethiopia_data
+        description: One record per form data.   
+      - name: delhi_data
+        identifier: Delhi_Data
+        description: One record per form data.   
+        

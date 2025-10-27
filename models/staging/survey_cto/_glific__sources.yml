@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+  - name: source_glific
+    schema: staging_glific
+    tables:
+      - name: certificate_templates
+        identifier: certificate_templates
+      - name: contact_histories
+        identifier: contact_histories
+      - name: contacts
+        identifier: contacts
+      - name: contacts_fields
+        identifier: contacts_fields
+      - name: contacts_groups
+        identifier: contacts_groups
+      - name: contacts_wa_groups
+        identifier: contacts_wa_groups
+      - name: flow_contexts
+        identifier: flow_contexts
+      - name: flow_counts
+        identifier: flow_counts
+      - name: flow_labels
+        identifier: flow_labels
+      - name: flow_results
+        identifier: flow_results
+      - name: flows
+        identifier: flows
+      - name: groups
+        identifier: groups
+      - name: interactive_templates
+        identifier: interactive_templates
+      - name: issued_certificates
+        identifier: issued_certificates
+      - name: message_broadcast_contacts
+        identifier: message_broadcast_contacts
+      - name: message_broadcasts
+        identifier: message_broadcasts
+      - name: message_conversations
+        identifier: message_conversations
+      - name: messages
+        identifier: messages
+      - name: messages_media
+        identifier: messages_media
+      - name: profiles
+        identifier: profiles
+      - name: saved_searches
+        identifier: saved_searches
+      - name: speed_sends
+        identifier: speed_sends
+      - name: stats
+        identifier: stats
+      - name: tags
+        identifier: tags
+      - name: tickets
+        identifier: tickets
+      - name: trackers
+        identifier: trackers
+      - name: wa_groups
+        identifier: wa_groups
+      - name: wa_groups_collections
+        identifier: wa_groups_collections
+      - name: wa_messages
+        identifier: wa_messages
+      - name: wa_reactions
+        identifier: wa_reactions
+        
