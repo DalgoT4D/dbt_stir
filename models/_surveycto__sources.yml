@@ -2,23 +2,23 @@ version: 2
 
 sources:
   - name: source_classroom_surveys
-    schema: staging
+    schema: new_staging
     tables:
       - name: delhi
-        identifier: delhi_india_measurement_form_2022
+        identifier: "Delhi_Data"
         description: One record per form data.
       - name: tamil_nadu
-        identifier: tn_stir_bm_2022
+        identifier: "TN_Data"
         description: One record per form data.
       - name: karnataka
-        identifier: karnataka_stir_bm_2022
+        identifier: "KT_Data"
         description: One record per form data.
       - name: indonesia
-        identifier: indonesia_stir_bm_2022
+        identifier: "Indonesia_Data"
         description: One record per form data.
       - name: uganda
-        identifier: uganda_bm_2022
+        identifier: "SurveyCTO_Data"
         description: One record per form data.
       - name: ethiopia
-        identifier: ethiopia_stir_bm_202324
+        identifier: "Ethiopia_data"
         description: One record per form data.
