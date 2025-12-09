@@ -6,10 +6,11 @@
 select
 forms,
 {{ dbt_utils.star(from= ref('karnataka_normalized'), except=['forms', 'district_kt', 'date', 'date_coaching','starttime','endtime','submissiondate','"CompletionDate"', '_airbyte_karnataka_stir_bm_2022_hashid']) }},
-'India' AS country, 'karnataka' AS region, district_kt as sub_region, to_date(coalesce(date,date_coaching), 'Mon, DD YYYY') as observation_date,
+'India' AS country, 'karnataka' AS region, district_kt as sub_region, to_date(coalesce(date,date_coaching), 'YYYY-MM-DD') as observation_date,
+c1 as e3, -- Duplicate c1 as e3 for dual classification
 COALESCE("remarks", "remarks_coaching") as remarks_qualitative,
-to_timestamp(starttime,'Mon, DD YYYY HH:MI:SS AM') AS starttime,
-to_timestamp(endtime,'Mon, DD YYYY HH:MI:SS AM') AS endtime,
-to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate,
-to_timestamp("SubmissionDate",'Mon, DD YYYY HH:MI:SS AM') AS submissiondate
+starttime::timestamp AS starttime,
+endtime::timestamp AS endtime,
+-- to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate, -- CompletionDate column does not exist in CSV
+"SubmissionDate"::timestamp AS submissiondate
 from {{ ref('karnataka_normalized') }} 

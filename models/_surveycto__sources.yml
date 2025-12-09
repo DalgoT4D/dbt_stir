@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: source_classroom_surveys
+    schema: new_staging
+    tables:
+      - name: delhi
+        identifier: "Delhi_Data"
+        description: One record per form data.
+      - name: tamil_nadu
+        identifier: "TN_Data"
+        description: One record per form data.
+      - name: karnataka
+        identifier: "KT_Data"
+        description: One record per form data.
+      - name: indonesia
+        identifier: "Indonesia_Data"
+        description: One record per form data.
+      - name: uganda
+        identifier: "SurveyCTO_Data"
+        description: One record per form data.
+      - name: ethiopia
+        identifier: "Ethiopia_data"
+        description: One record per form data.
