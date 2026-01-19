@@ -1,6 +1,5 @@
 {{ config(
   materialized='table',
-  schema=generate_schema_name('prod', this)
 ) }}
 
 SELECT

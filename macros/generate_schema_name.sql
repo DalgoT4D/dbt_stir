@@ -2,28 +2,17 @@
 
     {%- set default_schema = target.schema -%}
 
-    {%- if custom_schemaname is none -%}
+    {%- if custom_schema_name is none -%}
 
-       {%- if target.schema != "prod" -%}
-            {% if node.fqn[1:-1]|length == 0 %}
-                 {{target.schema}}{{ defaultschema }}
-            {% else %}
-                {% set prefix = node.fqn[1:-1]|join('') %}
-                 {{target.schema}}_{{ prefix | trim }}
-            {% endif %}
-
-
-       {% else %} 
-            {% if node.fqn[1:-1]|length == 0 %}
-                {{ defaultschema }}
-            {% else %}
-                {% set prefix = node.fqn[1:-1]|join('') %}
-                {{ prefix | trim }}
-            {% endif %}
-         {% endif %}
+        {% if node.fqn[1:-1]|length == 0 %}
+            {{ target.schema }}
+        {% else %}
+            {% set prefix = node.fqn[1:-1]|join('_') %}
+            {{ target.schema }}_{{ prefix | trim }}
+        {% endif %}
     {%- else -%}
 
-        {{ defaultschema }}{{ custom_schema_name | trim }}
+        {{ default_schema }}_{{ custom_schema_name | trim }}
 
     {%- endif -%}
 
