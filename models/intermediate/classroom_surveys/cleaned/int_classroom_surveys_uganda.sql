@@ -19,7 +19,13 @@ except=['location_uganda', 'district_bunyoro',
 'district_teso', 
 'district_westnile', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','"CompletionDate"', '_airbyte_uganda_bm_2022_hashid']) }},
 'Uganda' AS country, location_uganda AS region, coalesce (district_bunyoro,district_kigezi,district_masaka, district_rwenzori, district_central, district_mbale, district_acholi, district_busoga, district_karamoja, district_lango, district_teso, district_westnile) as sub_region, -- Removed district_midwestern as it doesn't exist in CSV
-to_date(coalesce(date,date_coaching), 'YYYY-MM-DD') as observation_date,
+CASE
+  WHEN coalesce(date,date_coaching) IS NOT NULL AND coalesce(date,date_coaching) ~ '^\d{2}/\d{2}/\d{4}'
+    THEN to_date(coalesce(date,date_coaching), 'DD/MM/YYYY')
+  WHEN coalesce(date,date_coaching) IS NOT NULL
+    THEN to_date(coalesce(date,date_coaching), 'YYYY-MM-DD')
+  ELSE NULL
+END as observation_date,
 COALESCE(cro1, s1) as s1,
 COALESCE(cro2, s2) as s2,  
 COALESCE(cro3, s3) as s3, 
@@ -35,8 +41,42 @@ COALESCE(cro10, se1) as se1,
 COALESCE(cro11, se2) as se2, 
 COALESCE(cro12, se3) as se3, 
 COALESCE("remarks", "remarks_classroom", "remarks_coaching") as remarks_qualitative,
-starttime::timestamp AS starttime,
-endtime::timestamp AS endtime,
+CASE
+  WHEN btrim(starttime) ~ '^[0-9]+(\.[0-9]+)?$'
+    THEN (timestamp '1899-12-30' + (btrim(starttime)::double precision * interval '1 day'))
+  WHEN starttime IS NOT NULL AND starttime ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
+    THEN to_timestamp(btrim(starttime), 'DD/MM/YYYY HH24:MI:SS')
+  WHEN starttime IS NOT NULL AND starttime ~ '^\d{2}/\d{2}/\d{4}'
+    THEN to_timestamp(btrim(starttime), 'DD/MM/YYYY')
+  WHEN starttime IS NOT NULL
+    THEN starttime::timestamp
+  ELSE NULL
+END AS starttime,
+CASE
+  WHEN btrim(endtime) ~ '^[0-9]+(\.[0-9]+)?$'
+    THEN (timestamp '1899-12-30' + (btrim(endtime)::double precision * interval '1 day'))
+  WHEN endtime IS NOT NULL AND endtime ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
+    THEN to_timestamp(btrim(endtime), 'DD/MM/YYYY HH24:MI:SS')
+  WHEN endtime IS NOT NULL AND endtime ~ '^\d{2}/\d{2}/\d{4}'
+    THEN to_timestamp(btrim(endtime), 'DD/MM/YYYY')
+  WHEN endtime IS NOT NULL
+    THEN endtime::timestamp
+  ELSE NULL
+END AS endtime,
 -- to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate, -- CompletionDate column does not exist in CSV
-"SubmissionDate"::timestamp AS submissiondate
+CASE
+  -- Kobo-style Excel serial date (days since 1899-12-30)
+  WHEN btrim(_submission_time) ~ '^[0-9]+(\.[0-9]+)?$'
+    THEN (timestamp '1899-12-30' + (btrim(_submission_time)::double precision * interval '1 day'))
+  -- DD/MM/YYYY format with time
+  WHEN _submission_time IS NOT NULL AND _submission_time ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
+    THEN to_timestamp(btrim(_submission_time), 'DD/MM/YYYY HH24:MI:SS')
+  -- DD/MM/YYYY format without time
+  WHEN _submission_time IS NOT NULL AND _submission_time ~ '^\d{2}/\d{2}/\d{4}'
+    THEN to_timestamp(btrim(_submission_time), 'DD/MM/YYYY')
+  -- ISO-ish / timestamp-ish strings
+  WHEN _submission_time IS NOT NULL
+    THEN btrim(_submission_time)::timestamp
+  ELSE NULL
+END AS submissiondate
 from {{ ref('uganda_normalized') }} 

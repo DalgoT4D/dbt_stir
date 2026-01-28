@@ -21,9 +21,44 @@ COALESCE(cro10, se1) as se1,
 COALESCE(cro11, se2) as se2, 
 COALESCE(cro12, se3) as se3, 
 COALESCE("remarks", "remarks_classroom", "remarks_coaching") as remarks_qualitative,
-to_date(coalesce(date,date_coaching), 'YYYY-MM-DD') as observation_date, 
-starttime::timestamp AS starttime,
-endtime::timestamp AS endtime,
+CASE
+  WHEN coalesce(date,date_coaching) IS NOT NULL AND coalesce(date,date_coaching) ~ '^\d{2}/\d{2}/\d{4}'
+    THEN to_date(coalesce(date,date_coaching), 'DD/MM/YYYY')
+  WHEN coalesce(date,date_coaching) IS NOT NULL
+    THEN to_date(coalesce(date,date_coaching), 'YYYY-MM-DD')
+  ELSE NULL
+END as observation_date, 
+CASE
+  WHEN btrim(starttime) ~ '^[0-9]+(\.[0-9]+)?$'
+    THEN (timestamp '1899-12-30' + (btrim(starttime)::double precision * interval '1 day'))
+  WHEN starttime IS NOT NULL AND starttime ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
+    THEN to_timestamp(btrim(starttime), 'DD/MM/YYYY HH24:MI:SS')
+  WHEN starttime IS NOT NULL AND starttime ~ '^\d{2}/\d{2}/\d{4}'
+    THEN to_timestamp(btrim(starttime), 'DD/MM/YYYY')
+  WHEN starttime IS NOT NULL
+    THEN starttime::timestamp
+  ELSE NULL
+END AS starttime,
+CASE
+  WHEN btrim(endtime) ~ '^[0-9]+(\.[0-9]+)?$'
+    THEN (timestamp '1899-12-30' + (btrim(endtime)::double precision * interval '1 day'))
+  WHEN endtime IS NOT NULL AND endtime ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
+    THEN to_timestamp(btrim(endtime), 'DD/MM/YYYY HH24:MI:SS')
+  WHEN endtime IS NOT NULL AND endtime ~ '^\d{2}/\d{2}/\d{4}'
+    THEN to_timestamp(btrim(endtime), 'DD/MM/YYYY')
+  WHEN endtime IS NOT NULL
+    THEN endtime::timestamp
+  ELSE NULL
+END AS endtime,
 -- to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate, -- CompletionDate column does not exist in CSV
-"SubmissionDate"::timestamp AS submissiondate
+CASE
+  -- Handle SubmissionDate (exists in SurveyCTO, NULL in Kobo)
+  WHEN "SubmissionDate" IS NOT NULL AND "SubmissionDate" ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
+    THEN to_timestamp("SubmissionDate", 'DD/MM/YYYY HH24:MI:SS')
+  WHEN "SubmissionDate" IS NOT NULL AND "SubmissionDate" ~ '^\d{2}/\d{2}/\d{4}'
+    THEN to_timestamp("SubmissionDate", 'DD/MM/YYYY')
+  WHEN "SubmissionDate" IS NOT NULL
+    THEN "SubmissionDate"::timestamp
+  ELSE NULL
+END AS submissiondate
 from {{ ref('indonesia_normalized') }} 
