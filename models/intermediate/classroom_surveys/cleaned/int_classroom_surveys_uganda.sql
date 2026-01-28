@@ -35,8 +35,28 @@ COALESCE(cro10, se1) as se1,
 COALESCE(cro11, se2) as se2, 
 COALESCE(cro12, se3) as se3, 
 COALESCE("remarks", "remarks_classroom", "remarks_coaching") as remarks_qualitative,
-starttime::timestamp AS starttime,
-endtime::timestamp AS endtime,
+CASE
+  WHEN btrim(starttime) ~ '^[0-9]+(\.[0-9]+)?$'
+    THEN (timestamp '1899-12-30' + (btrim(starttime)::double precision * interval '1 day'))
+  WHEN starttime IS NOT NULL
+    THEN starttime::timestamp
+  ELSE NULL
+END AS starttime,
+CASE
+  WHEN btrim(endtime) ~ '^[0-9]+(\.[0-9]+)?$'
+    THEN (timestamp '1899-12-30' + (btrim(endtime)::double precision * interval '1 day'))
+  WHEN endtime IS NOT NULL
+    THEN endtime::timestamp
+  ELSE NULL
+END AS endtime,
 -- to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate, -- CompletionDate column does not exist in CSV
-"SubmissionDate"::timestamp AS submissiondate
+CASE
+  -- Kobo-style Excel serial date (days since 1899-12-30)
+  WHEN btrim(_submission_time) ~ '^[0-9]+(\.[0-9]+)?$'
+    THEN (timestamp '1899-12-30' + (btrim(_submission_time)::double precision * interval '1 day'))
+  -- ISO-ish / timestamp-ish strings
+  WHEN _submission_time IS NOT NULL
+    THEN btrim(_submission_time)::timestamp
+  ELSE NULL
+END AS submissiondate
 from {{ ref('uganda_normalized') }} 
