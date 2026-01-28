@@ -14,17 +14,17 @@ sources:
         identifier: "KT_Data"
         description: One record per form data.
       - name: indonesia
-        identifier: "Indonesia_Data"
+        identifier: "Indonesia_SCTO"
         description: One record per form data.
       - name: uganda
-        identifier: "SurveyCTO_Data"
+        identifier: "Uganda_SCTO"
         description: One record per form data.
       - name: ethiopia
         identifier: "Ethiopia_data"
         description: One record per form data.
       - name: uganda_kobo
-        identifier: "Kobo_Data"
+        identifier: "Uganda_Kobo"
         description: One record per form data.
       - name: indonesia_kobo
-        identifier: "Kobo_Data1"
+        identifier: "Indonesia_Kobo"
         description: One record per form data.

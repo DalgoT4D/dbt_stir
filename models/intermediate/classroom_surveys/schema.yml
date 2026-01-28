@@ -93,4 +93,37 @@ models:
         description: region
         tests:
           - not_null
-Transform: AWS::Serverless-2016-10-31
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: text
+
+  - name: indonesia_normalized
+    description: |
+      Normalized Indonesia data (SurveyCTO + Kobo) with deduplication.
+      This model ensures NO duplicates in the dev_intermediate database.
+      Downstream tables may have repeated KEY values (e.g., one KEY per subindicator),
+      which is expected for data processing needs.
+    +schema: intermediate
+    columns:
+      - name: '"KEY"'
+        description: Primary key - must be unique and not null/blank in this intermediate table
+        tests:
+          - not_null
+          - unique
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
+
+  - name: uganda_normalized
+    description: |
+      Normalized Uganda data (SurveyCTO + Kobo) with deduplication.
+      This model ensures NO duplicates in the dev_intermediate database.
+      Downstream tables may have repeated KEY values (e.g., one KEY per subindicator),
+      which is expected for data processing needs.
+    +schema: intermediate
+    columns:
+      - name: '"KEY"'
+        description: Primary key - must be unique and not null/blank in this intermediate table
+        tests:
+          - not_null
+          - unique
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string

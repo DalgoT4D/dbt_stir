@@ -6,8 +6,18 @@
 -- SurveyCTO has 99 columns, Kobo has 131 columns
 -- Creating unified column list: all columns from both tables in consistent order
 -- Columns only in one table will be NULL in the other
+--
+-- IMPORTANT: This model deduplicates data based on KEY column in the dev_intermediate database.
+-- Downstream tables may have repeated KEY values (e.g., one KEY per subindicator, time period, etc.)
+-- which is expected for data processing needs. Deduplication only happens here.
 
-WITH surveycto_data AS (
+WITH surveycto_data_raw AS (
+    SELECT
+        *,
+        ROW_NUMBER() OVER (ORDER BY COALESCE(_id, deviceid, starttime, date)) AS row_num
+    FROM {{ source('source_classroom_surveys', 'indonesia') }}
+),
+surveycto_data AS (
     SELECT
         -- Common columns (in order)
         c1, c2, c3, e1, e2,
@@ -17,9 +27,11 @@ WITH surveycto_data AS (
         CAST(NULL AS varchar) AS n3,
         CAST(NULL AS varchar) AS n4,
         s1, s2, s3, s4,
-        -- _id exists in Kobo but not SurveyCTO
-        CAST(NULL AS varchar) AS _id,
-        "KEY" AS "KEY",  -- SurveyCTO already has KEY column (keep as-is)
+        _id,
+        COALESCE(
+            CASE WHEN _id IS NOT NULL AND btrim(_id) != '' THEN CONCAT('scto_', _id) ELSE NULL END,
+            CONCAT('scto_', CAST(row_num AS varchar))
+        ) AS "KEY",  -- Prefix SurveyCTO _id to ensure uniqueness, use row_num if _id is NULL
         c1a, c2a,
         cc1, cc2, cc3, cc4, cc5,
         -- "end" exists in Kobo but not SurveyCTO (quoted: reserved word)
@@ -37,7 +49,7 @@ WITH surveycto_data AS (
         -- _index, _notes exist in Kobo but not SurveyCTO
         CAST(NULL AS varchar) AS _index,
         CAST(NULL AS varchar) AS _notes,
-        caseid,  -- exists in SurveyCTO but not Kobo
+        CAST(NULL AS varchar) AS caseid,  -- caseid doesn't exist in SurveyCTO Indonesia
         cro13a, cro13b, cro13c,
         -- n_seca, n_secc, _status exist in Kobo but not SurveyCTO
         CAST(NULL AS varchar) AS n_seca,
@@ -58,10 +70,10 @@ WITH surveycto_data AS (
         CAST(NULL AS varchar) AS date_cro,
         deviceid, duration, expected, username, programme,
         starttime,
-        formdef_id,  -- exists in SurveyCTO but not Kobo
+        CAST(NULL AS varchar) AS formdef_id,  -- formdef_id doesn't exist in SurveyCTO Indonesia
         -- device_det exists in Kobo but not SurveyCTO
         CAST(NULL AS varchar) AS device_det,
-        "instanceID",  -- case-sensitive in SurveyCTO
+        CAST(NULL AS varchar) AS "instanceID",  -- instanceID doesn't exist in SurveyCTO Indonesia
         -- __version__ exists in Kobo but not SurveyCTO
         CAST(NULL AS varchar) AS __version__,
         device_info,
@@ -74,11 +86,11 @@ WITH surveycto_data AS (
         date_coaching, femalepresent,
         -- interview_dur exists in Kobo but not SurveyCTO
         CAST(NULL AS varchar) AS interview_dur,
-        observer_role, role_coaching, "SubmissionDate",  -- case-sensitive in SurveyCTO
+        observer_role, role_coaching, CAST(NULL AS varchar) AS "SubmissionDate",  -- SubmissionDate doesn't exist in SurveyCTO Indonesia
         coachee_gender, devicephonenum,
-        review_quality,  -- exists in SurveyCTO but not Kobo
+        CAST(NULL AS varchar) AS review_quality,  -- review_quality doesn't exist in SurveyCTO Indonesia
         teacher_gender, teacher_others,
-        formdef_version,  -- exists in SurveyCTO but not Kobo
+        CAST(NULL AS varchar) AS formdef_version,  -- formdef_version doesn't exist in SurveyCTO Indonesia
         forms_indonesia,
         observer_gender, observer_others,
         -- _submission_time exists in Kobo but not SurveyCTO
@@ -109,7 +121,7 @@ WITH surveycto_data AS (
         CAST(NULL AS varchar) AS cro13a_differentiated_instruction,
         CAST(NULL AS varchar) AS cro13av_differentiated_instruction,
         _airbyte_raw_id, _airbyte_extracted_at, _airbyte_meta
-    FROM {{ source('source_classroom_surveys', 'indonesia') }}
+    FROM surveycto_data_raw
 ),
 
 kobo_data AS (
@@ -119,7 +131,7 @@ kobo_data AS (
         n1, n2, n3, n4,
         s1, s2, s3, s4,
         _id,
-        CONCAT('kobo_', _id) AS "KEY",  -- Prefix to ensure uniqueness (SurveyCTO has KEY, Kobo has _id)
+        _id AS "KEY",  -- Use _id directly for KEY column
         c1a, c2a,
         cc1, cc2, cc3, cc4, cc5,
         "end",
@@ -177,8 +189,66 @@ kobo_data AS (
         cro13a_differentiated_instruction, cro13av_differentiated_instruction,
         _airbyte_raw_id, _airbyte_extracted_at, _airbyte_meta
     FROM {{ source('source_classroom_surveys', 'indonesia_kobo') }}
+),
+
+combined_data AS (
+    SELECT * FROM surveycto_data
+    UNION ALL
+    SELECT * FROM kobo_data
+),
+
+-- Deduplicate based on KEY column, keeping the latest record per KEY
+-- Deduplicate based on KEY column in dev_intermediate database
+-- Filter out NULL or blank KEY values to ensure data quality
+-- This ensures no duplicates in the intermediate schema tables
+deduplicated AS (
+    SELECT *
+    FROM (
+        SELECT
+            *,
+            ROW_NUMBER() OVER (
+                PARTITION BY "KEY"
+                ORDER BY 
+                    COALESCE(
+                        -- Handle _submission_time (Kobo Excel serial date or timestamp string)
+                        CASE
+                            WHEN btrim(_submission_time) ~ '^[0-9]+(\.[0-9]+)?$'
+                                THEN (timestamp '1899-12-30' + (btrim(_submission_time)::double precision * interval '1 day'))
+                            WHEN _submission_time IS NOT NULL AND _submission_time ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
+                                THEN to_timestamp(btrim(_submission_time), 'DD/MM/YYYY HH24:MI:SS')
+                            WHEN _submission_time IS NOT NULL AND _submission_time ~ '^\d{2}/\d{2}/\d{4}'
+                                THEN to_timestamp(btrim(_submission_time), 'DD/MM/YYYY')
+                            WHEN _submission_time IS NOT NULL
+                                THEN btrim(_submission_time)::timestamp
+                            ELSE NULL
+                        END,
+                        -- Handle starttime (Excel serial date or timestamp string)
+                        CASE
+                            WHEN btrim(starttime) ~ '^[0-9]+(\.[0-9]+)?$'
+                                THEN (timestamp '1899-12-30' + (btrim(starttime)::double precision * interval '1 day'))
+                            WHEN starttime IS NOT NULL AND starttime ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
+                                THEN to_timestamp(btrim(starttime), 'DD/MM/YYYY HH24:MI:SS')
+                            WHEN starttime IS NOT NULL AND starttime ~ '^\d{2}/\d{2}/\d{4}'
+                                THEN to_timestamp(btrim(starttime), 'DD/MM/YYYY')
+                            WHEN starttime IS NOT NULL
+                                THEN starttime::timestamp
+                            ELSE NULL
+                        END,
+                        -- Handle date field
+                        CASE
+                            WHEN date IS NOT NULL AND date ~ '^\d{2}/\d{2}/\d{4}'
+                                THEN to_timestamp(date, 'DD/MM/YYYY')::timestamp
+                            WHEN date IS NOT NULL
+                                THEN to_date(date, 'YYYY-MM-DD')::timestamp
+                            ELSE NULL
+                        END
+                    ) DESC NULLS LAST
+            ) AS rn
+        FROM combined_data
+        WHERE "KEY" IS NOT NULL 
+          AND btrim("KEY") != ''  -- Filter out NULL and blank KEY values
+    ) ranked
+    WHERE rn = 1
 )
 
-SELECT * FROM surveycto_data
-UNION ALL
-SELECT * FROM kobo_data
+SELECT * FROM deduplicated
