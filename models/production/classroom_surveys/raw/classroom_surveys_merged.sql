@@ -1,5 +1,6 @@
 {{ config(
-  materialized='table'
+  materialized='table',
+  schema=generate_schema_name('prod', this)
 ) }}
 
 with initial_merge as ({{ dbt_utils.union_relations(
