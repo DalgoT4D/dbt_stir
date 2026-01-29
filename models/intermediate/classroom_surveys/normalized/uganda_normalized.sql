@@ -1,5 +1,6 @@
 {{ config(
     materialized='table',
+    schema=generate_schema_name('prod_intermediate', this)
 ) }}
 
 -- UNION ALL of SurveyCTO Uganda data and Kobo Uganda data

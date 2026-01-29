@@ -1,5 +1,6 @@
 {{ config(
-    materialized='table'
+    materialized='table',
+    schema=generate_schema_name('prod', this)
 ) }}
 
 WITH survey_data AS (
