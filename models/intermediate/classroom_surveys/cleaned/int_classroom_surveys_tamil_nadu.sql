@@ -4,9 +4,9 @@
 ) }}
 
 select
-forms,
+forms::text as forms,
 {{ dbt_utils.star(from= ref('tamil_nadu_normalized'), except=['forms', 'district_tn', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','"CompletionDate"', '_airbyte_tn_stir_bm_2022_hashid']) }},
-'India' AS country, 'tamil_nadu' AS region, district_tn as sub_region, to_date(coalesce(date,date_coaching), 'YYYY-MM-DD') as observation_date,
+'India'::text AS country, 'tamil_nadu'::text AS region, district_tn::text as sub_region, to_date(coalesce(date,date_coaching), 'YYYY-MM-DD') as observation_date,
 COALESCE(cro1, s1) as s1,
 COALESCE(cro2, s2) as s2,  
 COALESCE(cro3, s3) as s3, 
@@ -25,5 +25,5 @@ COALESCE("remarks", "remarks_classroom", "remarks_coaching") as remarks_qualitat
 starttime::timestamp AS starttime,
 endtime::timestamp AS endtime,
 -- to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate, -- CompletionDate column does not exist in CSV
-"SubmissionDate"::timestamp AS submissiondate
+"SubmissionDate"::timestamptz AS submissiondate
 from {{ ref('tamil_nadu_normalized') }} 

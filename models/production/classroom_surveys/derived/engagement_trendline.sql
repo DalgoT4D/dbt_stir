@@ -4,7 +4,7 @@
 ) }}
 
 SELECT 
-  "program",
+  "program"::text AS "program",
   "KEY",
   "submissiondate",
   "observation_date",

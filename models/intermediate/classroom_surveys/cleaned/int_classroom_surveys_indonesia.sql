@@ -4,9 +4,9 @@
 ) }}
 
 select
-forms_indonesia as forms,
+forms_indonesia::text as forms,
 {{ dbt_utils.star(from= ref('indonesia_normalized'), except=['programme', 'district_kota_kediri', 'location_indonesia', 'district_indonesia', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','submissiondate','"CompletionDate"', '_airbyte_indonesia_stir_bm_2022_hashid']) }},
-'Indonesia' AS country, location_indonesia AS region, district_indonesia as sub_region,
+'Indonesia'::text AS country, location_indonesia::text AS region, district_indonesia::text as sub_region,
 COALESCE(cro1, s1) as s1,
 COALESCE(cro2, s2) as s2,  
 COALESCE(cro3, s3) as s3, 
@@ -52,14 +52,23 @@ CASE
   ELSE NULL
 END AS endtime,
 -- to_timestamp("CompletionDate",'Mon, DD YYYY HH:MI:SS AM') AS completiondate, -- CompletionDate column does not exist in CSV
-CASE
-  -- Handle SubmissionDate (exists in SurveyCTO, NULL in Kobo)
+-- SubmissionDate from SurveyCTO; _submission_time from Kobo (submissiontime field)
+(CASE
   WHEN "SubmissionDate" IS NOT NULL AND "SubmissionDate" ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
     THEN to_timestamp("SubmissionDate", 'DD/MM/YYYY HH24:MI:SS')
   WHEN "SubmissionDate" IS NOT NULL AND "SubmissionDate" ~ '^\d{2}/\d{2}/\d{4}'
     THEN to_timestamp("SubmissionDate", 'DD/MM/YYYY')
   WHEN "SubmissionDate" IS NOT NULL
     THEN "SubmissionDate"::timestamp
+  -- Fallback to _submission_time (Kobo submissiontime)
+  WHEN _submission_time IS NOT NULL AND btrim(_submission_time) ~ '^[0-9]+(\.[0-9]+)?$'
+    THEN (timestamp '1899-12-30' + (btrim(_submission_time)::double precision * interval '1 day'))
+  WHEN _submission_time IS NOT NULL AND _submission_time ~ '^\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2}'
+    THEN to_timestamp(btrim(_submission_time), 'DD/MM/YYYY HH24:MI:SS')
+  WHEN _submission_time IS NOT NULL AND _submission_time ~ '^\d{2}/\d{2}/\d{4}'
+    THEN to_timestamp(btrim(_submission_time), 'DD/MM/YYYY')
+  WHEN _submission_time IS NOT NULL
+    THEN btrim(_submission_time)::timestamp
   ELSE NULL
-END AS submissiondate
+END)::timestamptz AS submissiondate
 from {{ ref('indonesia_normalized') }} 
