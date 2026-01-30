@@ -3,20 +3,3 @@ target/
 dbt_packages/
 logs/
 .qodo
-
-# Process/explanation artifacts (not for commit)
-EMPTY_PROD_TABLES_ANALYSIS.md
-*_ANALYSIS.md
-*_FINDINGS*.md
-*_UPDATES.md
-*_COMPLETE.md
-*_COMPARISON.md
-*_CHECKLIST.md
-*_STRUCTURE.md
-*_VERIFICATION.md
-*_SUMMARY.md
-check_*.sql
-extract_*.sql
-get_row_counts.sql
-verify_*.sql
-.user.yml
