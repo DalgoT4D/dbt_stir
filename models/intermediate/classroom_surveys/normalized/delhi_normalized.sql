@@ -80,7 +80,7 @@ SELECT
     date,
     starttime,
     endtime,
-    "SubmissionDate",
+    "SubmissionDate"::timestamptz AS "SubmissionDate",
     deviceid,
     CAST(duration AS bigint) AS duration,
     CAST(expected AS bigint) AS expected,

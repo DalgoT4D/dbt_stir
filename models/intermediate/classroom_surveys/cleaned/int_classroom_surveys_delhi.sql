@@ -4,9 +4,9 @@
 ) }}
 
 select
-forms,
+forms::text as forms,
 {{ dbt_utils.star(from= ref('delhi_normalized'), except=['forms', 'diet_delhi', 's1', 's2', 's3', 'e1', 'e2','c1', 'c1a', 'c2', 'c2a', 'c3', 'se1', 'se2', 'se3', 'date', 'date_coaching','starttime','endtime','"SubmissionDate"', '_airbyte_raw_id', '_airbyte_extracted_at', '_airbyte_meta']) }},
-'India' AS country, 'delhi' AS region, diet_delhi as sub_region, to_date(coalesce(date,date_coaching), 'YYYY-MM-DD') as observation_date,
+'India'::text AS country, 'delhi'::text AS region, diet_delhi::text as sub_region, to_date(coalesce(date,date_coaching), 'YYYY-MM-DD') as observation_date,
 COALESCE(cro1, s1) as s1,
 COALESCE(cro2, s2) as s2,  
 COALESCE(cro3, s3) as s3, 
@@ -32,6 +32,6 @@ COALESCE("remarks", "remarks_classroom", "remarks_coaching") as remarks_qualitat
 "AD9" as ad9,
 starttime::timestamp AS starttime,
 endtime::timestamp AS endtime,
-"SubmissionDate"::timestamp AS submissiondate
+"SubmissionDate"::timestamptz AS submissiondate
 from {{ ref('delhi_normalized') }} 
 

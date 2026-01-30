@@ -6,9 +6,10 @@
 with initial_merge as ({{ dbt_utils.union_relations(
     relations=[ref('int_classroom_surveys_uganda'), ref('int_classroom_surveys_indonesia'), ref('int_classroom_surveys_delhi'), ref('int_classroom_surveys_tamil_nadu'), ref('int_classroom_surveys_karnataka'), ref('int_classroom_surveys_ethiopia')],
     exclude=["_airbyte_emitted_at", "_airbyte_normalized_at"]
-) }})
+) }}),
 
-select *, 
+add_verbose as (
+  select *,
     CASE 
         WHEN forms = 'sam' THEN 'State Alignment Meeting'
         WHEN forms = 'gc_indo' THEN 'Group Coaching Indonesia'
@@ -43,7 +44,7 @@ select *,
         WHEN forms = 'ss_indo' THEN 'School Supervisors Institute Indonesia'
         WHEN forms = 'dcac_indo' THEN 'District Coordinator/Area Coordinator Institute Indonesia'
     END AS forms_verbose,
-    CASE 
+  CASE 
         WHEN forms = 'nm_indo' THEN 'Network Meeting'
         WHEN forms = 'nm_eth' THEN 'Network Meeting'
         WHEN forms = 'cc_indo' THEN 'Coaching Calls'
@@ -74,6 +75,9 @@ select *,
         WHEN forms = 'dpo_nb' THEN 'District Personnel Officer National Bootcamp'
         WHEN forms = 'ss_indo' THEN 'School Supervisors Institute'
         WHEN forms = 'dcac_indo' THEN 'District Coordinator/Area Coordinator Institute'
-    END AS forms_verbose_consolidated
+  END AS forms_verbose_consolidated
+  from initial_merge
+)
 
-from initial_merge
+select *
+from add_verbose
