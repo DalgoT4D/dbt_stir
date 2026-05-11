@@ -8,41 +8,42 @@
 ------------------------------------------------------------------------------
 WITH expanded_cro13 AS (
     SELECT *,
-        -- Expand cro13ai space-separated values into individual binary indicators
-        CASE WHEN cro13ai LIKE '%behavior_engagement%' THEN 1 ELSE 0 END as cro13ai_behavior_engagement_derived,
-        CASE WHEN cro13ai LIKE '%behavior_safety%' THEN 1 ELSE 0 END as cro13ai_behavior_safety_derived,
-        CASE WHEN cro13ai LIKE '%behavior_selfesteem%' THEN 1 ELSE 0 END as cro13ai_behavior_selfesteem_derived,
-        CASE WHEN cro13ai LIKE '%building_a_stronger_community%' THEN 1 ELSE 0 END as cro13ai_building_a_stronger_community_derived,
-        CASE WHEN cro13ai LIKE '%building_connect%' THEN 1 ELSE 0 END as cro13ai_building_connect_derived,
-        CASE WHEN cro13ai LIKE '%classroom_routines%' THEN 1 ELSE 0 END as cro13ai_classroom_routines_derived,
-        CASE WHEN cro13ai LIKE '%lesson_planning%' THEN 1 ELSE 0 END as cro13ai_lesson_planning_derived,
-        CASE WHEN cro13ai LIKE '%look_for_understanding%' THEN 1 ELSE 0 END as cro13ai_look_for_understanding___respond_derived,
-        CASE WHEN cro13ai LIKE '%mission_buniyad%' THEN 1 ELSE 0 END as cro13ai_mission_buniyad_derived,
-        CASE WHEN cro13ai LIKE '%psychological_safety%' THEN 1 ELSE 0 END as cro13ai_psychological_safety_derived,
-        CASE WHEN cro13ai LIKE '%social_%emotional_wellbeing%' THEN 1 ELSE 0 END as cro13ai_social___emotional_wellbeing_derived,
-        CASE WHEN cro13ai LIKE '%teaching___learning_strategies_1%' THEN 1 ELSE 0 END as cro13ai_teaching___learning_strategies_1_derived,
-        CASE WHEN cro13ai LIKE '%teaching___learning_strategies_2%' THEN 1 ELSE 0 END as cro13ai_teaching___learning_strategies_2_derived,
+        -- Expand cro13ai space-separated values into individual binary indicators.
+        -- Keep NULL when source is NULL/blank so empty records don't generate synthetic zero-score rows.
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%behavior_engagement%' THEN 1 ELSE 0 END as cro13ai_behavior_engagement_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%behavior_safety%' THEN 1 ELSE 0 END as cro13ai_behavior_safety_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%behavior_selfesteem%' THEN 1 ELSE 0 END as cro13ai_behavior_selfesteem_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%building_a_stronger_community%' THEN 1 ELSE 0 END as cro13ai_building_a_stronger_community_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%building_connect%' THEN 1 ELSE 0 END as cro13ai_building_connect_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%classroom_routines%' THEN 1 ELSE 0 END as cro13ai_classroom_routines_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%lesson_planning%' THEN 1 ELSE 0 END as cro13ai_lesson_planning_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%look_for_understanding%' THEN 1 ELSE 0 END as cro13ai_look_for_understanding___respond_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%mission_buniyad%' THEN 1 ELSE 0 END as cro13ai_mission_buniyad_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%psychological_safety%' THEN 1 ELSE 0 END as cro13ai_psychological_safety_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%social_%emotional_wellbeing%' THEN 1 ELSE 0 END as cro13ai_social___emotional_wellbeing_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%teaching___learning_strategies_1%' THEN 1 ELSE 0 END as cro13ai_teaching___learning_strategies_1_derived,
+        CASE WHEN cro13ai IS NULL OR btrim(cro13ai) = '' THEN NULL WHEN cro13ai LIKE '%teaching___learning_strategies_2%' THEN 1 ELSE 0 END as cro13ai_teaching___learning_strategies_2_derived,
 
         -- Expand cro13aiii space-separated values
-        CASE WHEN cro13aiii LIKE '%asking_effective_questions%' THEN 1 ELSE 0 END as cro13aiii_asking_effective_questions_derived,
-        CASE WHEN cro13aiii LIKE '%elaborative_questioning%' THEN 1 ELSE 0 END as cro13aiii_elaborative_questioning_derived,
-        CASE WHEN cro13aiii LIKE '%emotional_learning_environment%' THEN 1 ELSE 0 END as cro13aiii_emotional_learning_environment_derived,
-        CASE WHEN cro13aiii LIKE '%growth_mindset%' THEN 1 ELSE 0 END as cro13aiii_growth_mindset_derived,
-        CASE WHEN cro13aiii LIKE '%physical_learning_environment%' THEN 1 ELSE 0 END as cro13aiii_physical_learning_environment_derived,
-        CASE WHEN cro13aiii LIKE '%retrieval_practices%' THEN 1 ELSE 0 END as cro13aiii_retrieval_practices_derived,
-        CASE WHEN cro13aiii LIKE '%worked_examples%' THEN 1 ELSE 0 END as cro13aiii_worked_examples_derived,
+        CASE WHEN cro13aiii IS NULL OR btrim(cro13aiii) = '' THEN NULL WHEN cro13aiii LIKE '%asking_effective_questions%' THEN 1 ELSE 0 END as cro13aiii_asking_effective_questions_derived,
+        CASE WHEN cro13aiii IS NULL OR btrim(cro13aiii) = '' THEN NULL WHEN cro13aiii LIKE '%elaborative_questioning%' THEN 1 ELSE 0 END as cro13aiii_elaborative_questioning_derived,
+        CASE WHEN cro13aiii IS NULL OR btrim(cro13aiii) = '' THEN NULL WHEN cro13aiii LIKE '%emotional_learning_environment%' THEN 1 ELSE 0 END as cro13aiii_emotional_learning_environment_derived,
+        CASE WHEN cro13aiii IS NULL OR btrim(cro13aiii) = '' THEN NULL WHEN cro13aiii LIKE '%growth_mindset%' THEN 1 ELSE 0 END as cro13aiii_growth_mindset_derived,
+        CASE WHEN cro13aiii IS NULL OR btrim(cro13aiii) = '' THEN NULL WHEN cro13aiii LIKE '%physical_learning_environment%' THEN 1 ELSE 0 END as cro13aiii_physical_learning_environment_derived,
+        CASE WHEN cro13aiii IS NULL OR btrim(cro13aiii) = '' THEN NULL WHEN cro13aiii LIKE '%retrieval_practices%' THEN 1 ELSE 0 END as cro13aiii_retrieval_practices_derived,
+        CASE WHEN cro13aiii IS NULL OR btrim(cro13aiii) = '' THEN NULL WHEN cro13aiii LIKE '%worked_examples%' THEN 1 ELSE 0 END as cro13aiii_worked_examples_derived,
 
         -- Expand cro13aiv space-separated values
-        CASE WHEN cro13aiv LIKE '%bridging_covid19_learning_losses%' THEN 1 ELSE 0 END as cro13aiv_bridging_covid19_learning_losses_derived,
-        CASE WHEN cro13aiv LIKE '%classroom_routines%' THEN 1 ELSE 0 END as cro13aiv_classroom_routines_derived,
-        CASE WHEN cro13aiv LIKE '%longterm_learning%' THEN 1 ELSE 0 END as cro13aiv_longterm_learning_derived,
-        CASE WHEN cro13aiv LIKE '%na%' THEN 1 ELSE 0 END as cro13aiv_na_derived,
-        CASE WHEN cro13aiv LIKE '%socio_emotional_wellbeing%' THEN 1 ELSE 0 END as cro13aiv_socio_emotional_wellbeing_derived,
-        CASE WHEN cro13aiv LIKE '%structuring_learning_journey%' THEN 1 ELSE 0 END as cro13aiv_structuring_learning_journey_derived,
+        CASE WHEN cro13aiv IS NULL OR btrim(cro13aiv) = '' THEN NULL WHEN cro13aiv LIKE '%bridging_covid19_learning_losses%' THEN 1 ELSE 0 END as cro13aiv_bridging_covid19_learning_losses_derived,
+        CASE WHEN cro13aiv IS NULL OR btrim(cro13aiv) = '' THEN NULL WHEN cro13aiv LIKE '%classroom_routines%' THEN 1 ELSE 0 END as cro13aiv_classroom_routines_derived,
+        CASE WHEN cro13aiv IS NULL OR btrim(cro13aiv) = '' THEN NULL WHEN cro13aiv LIKE '%longterm_learning%' THEN 1 ELSE 0 END as cro13aiv_longterm_learning_derived,
+        CASE WHEN cro13aiv IS NULL OR btrim(cro13aiv) = '' THEN NULL WHEN cro13aiv LIKE '%na%' THEN 1 ELSE 0 END as cro13aiv_na_derived,
+        CASE WHEN cro13aiv IS NULL OR btrim(cro13aiv) = '' THEN NULL WHEN cro13aiv LIKE '%socio_emotional_wellbeing%' THEN 1 ELSE 0 END as cro13aiv_socio_emotional_wellbeing_derived,
+        CASE WHEN cro13aiv IS NULL OR btrim(cro13aiv) = '' THEN NULL WHEN cro13aiv LIKE '%structuring_learning_journey%' THEN 1 ELSE 0 END as cro13aiv_structuring_learning_journey_derived,
 
         -- Expand cro13av space-separated values
-        CASE WHEN cro13av LIKE '%growth_mindset%' THEN 1 ELSE 0 END as cro13av_growth_mindset_derived,
-        CASE WHEN cro13av LIKE '%normalising_error%' THEN 1 ELSE 0 END as cro13av_normalising_error_derived
+        CASE WHEN cro13av IS NULL OR btrim(cro13av) = '' THEN NULL WHEN cro13av LIKE '%growth_mindset%' THEN 1 ELSE 0 END as cro13av_growth_mindset_derived,
+        CASE WHEN cro13av IS NULL OR btrim(cro13av) = '' THEN NULL WHEN cro13av LIKE '%normalising_error%' THEN 1 ELSE 0 END as cro13av_normalising_error_derived
 
     FROM {{ ref('classroom_surveys_merged') }}
 ),
